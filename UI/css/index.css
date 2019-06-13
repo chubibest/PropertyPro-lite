@@ -1,0 +1,81 @@
+body{
+  background-color: rgba(0,0,0,.9);
+  background-image:linear-gradient(0deg, rgba(0,0,0, 0.5), rgba(0,0,0, 0.5)), url('../images/lithouse4.jpg');
+  background-attachment: fixed, fixed;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+main {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 6em;
+  color:white;
+  }
+  #first_animation{
+    font-size:1.5em;
+    }
+  #second_animation{
+    font-size:1.5em;
+  }
+  .display_board{
+    height:1.5em;
+    overflow: hidden;
+    box-sizing:border-box;
+  }
+  .items{
+    height:1.5em;
+    color:#2A88AD;
+    /* color:dodgerblue; */
+    font-weight:bolder;
+    position:relative;
+    animation-name: first_slide;
+    animation-duration:10s;
+    animation-iteration-count:infinite;
+  }
+  #slider_wrapper{
+    width:20em;
+  }
+  .display{
+    display:none;
+  }
+  @keyframes first_slide {
+    0%{
+      top: 0;
+      }
+    30%{
+      top:0;
+    }
+    35%{
+      top: -1.5em;
+    }
+    60%{
+      top:-1.5em;
+    }
+    65%{
+      top:-3em;
+    }
+    100%{
+      top: -3em;
+    }
+  } 
+
+  @media (max-width:900px){
+    main{
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin:2em auto;
+    }
+    #slider_wrapper{
+      margin: 3em auto;
+     }
+  }
+
+  @media (max-width:700px){
+    main{
+      margin:1em auto;
+    }
+  }
+
+  
