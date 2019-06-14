@@ -32,9 +32,11 @@ form ul li {
   margin:1em auto;
 }
 form ul li label{
- text-align: center;
+ text-align: left;
  font-size: .5em;
  color:dimgrey;
+ font-family: 'Open Sans', sans-serif;
+ /* font-weight:lighters; */
 }
 
 form ul li input{

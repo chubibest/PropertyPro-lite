@@ -27,7 +27,8 @@ header {
   justify-content: space-between;
   width:100%;
   border-bottom: 1px solid transparent;
-  background:hsla(340,80%, 60%, 0.9);
+  background:#ea477de6;
+  background:linear-gradient(to top, #dd5783 15%, #de3c72 75%, #e33971 99%, #9c1341 100%);
   color: white;
   
   /* color: #f6f6f9; */
