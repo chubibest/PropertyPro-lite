@@ -1,0 +1,26 @@
+#display_prop {
+  width:90%;
+ 
+}
+
+#display_prop div {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  align-items: center;
+}
+
+#image_display {
+  width:300px;
+  height:300px
+}
+
+#data_display {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  list-style-type: square circle; 
+}
+
+#data_display li{
+  display:block;
+}
