@@ -33,4 +33,3 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
   submitHandler(form)
 })
-

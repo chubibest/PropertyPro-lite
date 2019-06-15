@@ -1,9 +1,9 @@
 form {
   margin: 2em auto;
   /* margin-top: 2em; */
-  min-width:300px;
+  min-width:400px;
   font: normal 30px 'Bitter', serif;
-  width:30%;
+  width:50%;
   /* box-shadow: inset -8px 0px 0 #2A88AD; */
   box-sizing: content-box;
   border-bottom:2px solid transparent;
@@ -53,4 +53,10 @@ button {
   border-radius: .2em;
   height:1.4em;
   padding:0;
+}
+
+@media(max-width:1000px){
+  form ul li {
+    grid-template-columns: 1fr;
+  }
 }

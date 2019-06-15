@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/form.css">
+  <link rel="stylesheet" href="css/createad.css">
 </head>
 
 <body>
@@ -41,44 +42,42 @@
       <ul>
           <li>
                 <label for="type">Type</label>
-                <input type="text" id="type">
+                <input type="text" id="type" name="type">
           </li>
           <li>
               <label for="location">Location</label>
-              <input type="text" id="location">
+              <input type="text" id="location" name="location">
           </li>
           <li>
               <label for="price">Price</label>
-              <input type="number" id="price">
+              <input type="number" id="price" name="price">
           </li>
           <li>
               <label for="image">Poster Image</label>
-              <input type="file" multiple accept="image/*" id="image">
+              <input type="file" accept="image/*" id="image" name="image">
           </li>
           <li>
               <label for="images">Album</label>
-              <input type="file" id="images" multiple accept="image/*">
+              <input type="file" id="images" multiple accept="image/*" name="images">
           </li>
       </ul>
-      <button>
-        Create Ad
+      <button type="submit">
+       Create Ad 
       </button>
    </form>
-   <div id="form_result">
-     <div id="result_img">
-       HALLELUYAH JESUS CONQUERED THE WORLD
-      <img id="image_display">
-     </div>
-     <ul id="">
-       <li>
+   <div id="display_prop">
+     <div> 
+       <img id="image_display">
+       <ul id="data_display">
 
-       </li>
-     </ul>
+       </ul>
+      </div>
    </div>
   </main>
   <footer>
     &copy;2019
   </footer>
+  <script src="js/createad.js"></script>
 </body>
 
 </html>
