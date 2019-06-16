@@ -1,17 +1,17 @@
 #display_prop {
   width:90%;
- 
-}
-
-#display_prop div {
   display: grid;
   grid-template-columns: 5fr 2fr;
   align-items: center;
 }
 
-#image_display {
+#display_prop div {
   width:300px;
-  height:300px
+  height:300px;
+}
+
+#image_display {
+  
 }
 
 #data_display {
@@ -23,4 +23,9 @@
 
 #data_display li{
   display:block;
+}
+
+#map {
+  height:600px;
+  border:2px solid;
 }
