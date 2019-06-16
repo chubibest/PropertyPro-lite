@@ -8,10 +8,11 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/form.css">
   <link rel="stylesheet" href="css/createad.css">
-</head>
+ </head>
 
 <body>
   <header>
@@ -65,7 +66,7 @@
        Create Ad 
       </button>
    </form>
-   <div id="display_prop">
+   <div id="display_property">
      <div> 
        <img id="image_display">
      </div>
@@ -74,37 +75,16 @@
        </ul>
    </div>
    <div id="map">
-
+     Oluwa give me this money
+    <i class="fas fa-window-close" id = 'close'></i><p></p>
    </div>
   </main>
   <footer>
     &copy;2019
   </footer>
-  <script src="js/createad.js"></script>
-  <script>
- 
-  function initMap () {
-    const mapDiv =  document.getElementById('map');
-    const latLong = {
-      lat: -25.344,
-      lng: 131.036
-    }
-    const mapOptions = {
-      zoom: 8,
-      center: latLong
-    }
-    const map = new google.maps.Map(mapDiv, mapOptions);
-
-    const markerOptions = {
-      position: latLong,
-      map
-    }
-    var marker = new google.maps.Marker(markerOptions)
-  }
-  </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd-1080cYr856p-UyPz2mCW_nrZ5ajr1w&callback=initMap"
-    type="text/javascript"></script>
-    
+  <script src="js/map.js"></script>
+  <script type="module" src="js/createad.js"></script>
+  
 </body>
 
 </html>
