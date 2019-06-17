@@ -1,6 +1,5 @@
   function initMap () {
     const mapDiv =  document.getElementById('map');
-    mapDiv.style.display = "block"
   
     const latLong = {
       lat: -25.344,
@@ -18,7 +17,5 @@
       title: 'Property location.'
     }
     const marker = new google.maps.Marker(markerOptions)
-
-    mapDiv.insertAdjacentElement('beforebegin',document.getElementById('close'))
-   }
+  }
   
