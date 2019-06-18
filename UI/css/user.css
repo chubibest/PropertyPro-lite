@@ -1,7 +1,12 @@
 input[type=search] {
   margin-top:30px;
+  width:16em;
+  height: 1.5em;
 }
 
+#search_bar::after {
+  content: attr(class) "fa fa-search"
+}
 #see_all {
   margin-top:40px;
  
@@ -27,4 +32,8 @@ input[type=search] {
 
 #search_icon {
   fill: dimgray;
+}
+
+#nav_links {
+  font-size:.9em;
 }

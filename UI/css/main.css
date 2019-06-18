@@ -140,16 +140,8 @@ footer{
      position:relative;
      line-height: 1.8em;
   }
-  #nav_links{
-    display:block;
-  }
-  #nav_links li{
+  .display{
   display:none;
   }
-   #nav_links:hover > .nav_link_items{
-    display:block;
-    }
-    #nav_links:hover > #menu{
-      display:none
-    }
+  
 }
