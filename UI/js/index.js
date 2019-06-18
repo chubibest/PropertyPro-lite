@@ -2,8 +2,7 @@
 const firstAnimation = document.querySelector('#first_animation');
 const secondAnimation = document.querySelector('#second_animation');
 const nav = document.querySelector('#nav_links')
-const links = document.querySelectorAll('#nav_links li');
-const menu = document.querySelector('#menu')
+
 
 // const handleMenu = (e) => {
 //   e.preventDefault()
@@ -20,8 +19,8 @@ const menu = document.querySelector('#menu')
 // }
 // menu.addEventListener('mouseover', (e) => {handleMenu(e)})
 const toggleDisplay = (firstAnimation, secondAnimation) => {
-  firstAnimation.classList.toggle('display')
-  secondAnimation.classList.toggle('display')
+  firstAnimation.classList.toggle('reel')
+  secondAnimation.classList.toggle('reel')
 }
 
 setInterval(()=>{
