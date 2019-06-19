@@ -50,6 +50,15 @@ text-align: left;
   transition: display 3s ease;
 }
 
+.sold{
+display: block;
+color:green;
+}
+
+.results_button{
+  margin-right:10px;
+  margin-left:10px;
+}
 @media(max-width:800px){
   #display_property{
     grid-template-columns:1fr;
