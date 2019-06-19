@@ -10,6 +10,7 @@
   
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/user.css">
+  <link rel="stylesheet" href="css/details_view.css">
 </head>
 
 <body>
@@ -22,11 +23,14 @@
    
     <ul id="nav_links">
         <i class="fa fa-bars fa-2x" id="menu"></i>
-      <li class="nav_link_items">
+      <li class="nav_link_items display">
         <a href="createad.html" >Post Ad</a>
       </li>
-      <li class="nav_link_items">
+      <li class="nav_link_items display">
         <a href="signin.html">My Ads</a>
+      </li>
+      <li class="nav_link_items display">
+        <a href="index.html">Log Out</a>
       </li>
     </ul>
   </header>
@@ -37,12 +41,8 @@
   </div>
   <main>
     <div id="search_area">
-      <div>
-          <label for="search_bar">
-              <i class="fa fa-search"></i>
-           </label>
          <input type="search" placeholder="search by price, location or type" id="search_bar">
-        </div>
+         <button id='search_button'>search</button>
     </div>
     <div id="see_all">
         <button id="click_me">
@@ -52,10 +52,22 @@
            Click to see all available Real Estate
          </p>
     </div>
+    <div id="display_property">
+      <div> 
+        <img id="image_display">
+      </div>
+        <ul id="data_display">
+ 
+        </ul>
+    </div>
+    <div id="map">
+    </div>
   </main>
   <footer>
     &copy;2019
   </footer>
+  <script src="js/menu.js"></script>
+  <script type="module" src="js/details_view.js"></script>
 </body>
 
 </html>

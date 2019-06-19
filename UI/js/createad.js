@@ -1,59 +1,54 @@
+import populateResult from "./details_view.js";
+
 const form = document.querySelector("form");
-const button = document.querySelector("button");
 const displayResults = document.querySelector("#display_property");
-const displayPoster = document.querySelector("#image_display");
-const displayDetailsUl = document.querySelector("#data_display");
-const processedForm = new FormData(form);
+const displayDetailsUl = document.querySelector("#data_display")
 
-const submitHandler = ({
-  type: { value: type },
-  location: { value: location },
-  price: { value: price },
-  image,
-  images
-}) => {
-  const displayDetails = detail => {
-    // this function populates the result div
-    // with the property details
-    const listItem = document.createElement("li");
-    listItem.innerText = detail;
-    displayDetailsUl.appendChild(listItem);
-  };
-  const reader = new FileReader();
+const handleUpdate = () => {
+  location.href = 'createad.html';
+  // location.reload()
+}
 
-  reader.addEventListener("load", () => {
-    // populate the div that display results
+const handleDelete = () => {
+  location.href = 'user.html';
+  // location.reload()
+}
+const handleMark = (e) => {
+   const listItem = document.querySelector('#listItem')
+   const state = listItem.classList.toggle('sold')
+   
+   if(state){
+     e.target.innerText = 'Unmark';
+     listItem.style.display = 'block';
+     return
+   }
+   e.target.innerText = 'Mark as sold';
+   listItem.style.display = 'none'
+}
+// this function adds buttons unique to the agent
+const generateAgentButtons = (text) => {
+  const button = document.createElement("button")
+  button.innerText = text;
+  button.classList.add('results_button')
+  displayResults.insertAdjacentElement('afterend', button)
+  return button
+}
 
-    displayDetails(type);
-    displayDetails(location);
-    displayDetails(price);
+form.addEventListener("submit",  (e) => {
+  e.preventDefault();  
+  populateResult(form);
+  const listItem = document.createElement('li');
+listItem.innerText = 'Sold';
+listItem.style.color = '#00FF00';
+listItem.style.fontWeight = 'bolder';
+listItem.style.display = 'none'
+listItem.id = ('listItem')
+displayDetailsUl.appendChild(listItem)
 
-    // create open google map button
-    const locationButton = document.createElement("button");
-    locationButton.innerText = "View Location";
-    locationButton.addEventListener("click", () => {
-      const script = document.createElement("script");
-      script.src =
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyBd-1080cYr856p-UyPz2mCW_nrZ5ajr1w&callback=initMap";
-      document.body.appendChild(script);
-    });
-
-    displayResults.insertAdjacentElement("afterend", locationButton);
-
-    // add a listener that calls the map api on  button click
-    displayPoster.height = 300;
-    displayPoster.width = 300;
-    displayPoster.src = reader.result;
-    form.style.display = "none";
+generateAgentButtons('Delete Ad').addEventListener('click', handleDelete)
+generateAgentButtons('Update Ad').addEventListener('click', handleUpdate)
+generateAgentButtons('Mark as sold').addEventListener('click', (e) => {
+  handleMark(e)
   });
-
-  reader.addEventListener("error", () => {
-    alert("not load image");
-  });
-  reader.readAsDataURL(image.files[0]);
-};
-
-form.addEventListener("submit", e => {
-  e.preventDefault();
-  submitHandler(form);
+ 
 });

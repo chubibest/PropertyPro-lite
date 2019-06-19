@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/form.css">
-  <link rel="stylesheet" href="css/createad.css">
+  <link rel="stylesheet" href="css/details_view.css">
  </head>
 
 <body>
@@ -24,11 +24,11 @@
    
     <ul id="nav_links">
         <i class="fa fa-bars fa-2x" id="menu"></i>
-      <li class="nav_link_items">
+      <!-- <li class="nav_link_items display">
         <a href="" >Dum</a>
-      </li>
-      <li class="nav_link_items">
-        <a href="">Dum</a>
+      </li> -->
+      <li class="nav_link_items display">
+        <a href="index.html">Log Out</a>
       </li>
     </ul>
   </header>
@@ -58,7 +58,7 @@
               <input type="file" accept="image/*" id="image" name="image" required>
           </li>
           <li>
-              <label for="images">Album</label>
+              <label for="images" id="for_album">Album</label>
               <input type="file" id="images" multiple accept="image/*" name="images">
           </li>
       </ul>
@@ -80,7 +80,9 @@
   <footer>
     &copy;2019
   </footer>
+  <script src="js/menu.js"></script>
   <script src="js/map.js"></script>
+  <script type="module" src="js/details_view.js"></script>
   <script type="module" src="js/createad.js"></script>
   
 </body>

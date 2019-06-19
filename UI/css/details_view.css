@@ -1,0 +1,70 @@
+#display_property {
+  display: none;
+  width:70vw;
+  grid-template-columns: 2fr 2fr;
+  align-items: center;
+  justify-content:center;
+  position: relative;
+  transition: display 3s ease 2s;
+  margin: 20px auto;
+}
+
+#display_property div {
+  border-radius:10px;
+  width:300px;
+  height:300px;
+  margin-right:0px;
+}
+
+
+#image_display {
+  border-radius:10px;
+  padding:0px;
+ 
+}
+
+#data_display {
+  margin-left:0;
+}
+#data_display li {
+font-size:1em;
+padding:0;
+margin:.5em 0;
+text-align: left;
+}
+#data_display {
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+#data_display li{
+  display:block;
+}
+
+#map {
+  display: none;
+  height:500px;
+  width:600px;
+  margin: 20px auto;
+  transition: display 3s ease;
+}
+
+.sold{
+display: block;
+color:green;
+}
+
+.results_button{
+  margin-right:10px;
+  margin-left:10px;
+}
+@media(max-width:800px){
+  #display_property{
+    grid-template-columns:1fr;
+  }
+
+  #data_display {
+    padding-left:0px;
+  }
+}

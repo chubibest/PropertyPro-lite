@@ -39,6 +39,14 @@ form ul li label{
  /* font-weight:lighters; */
 }
 
+form ul li label::after{
+  content:'*';
+  color:red;
+}
+
+#for_album::after{
+  content:'';
+}
 form ul li input{
 width:70%;
 text-align:left;
