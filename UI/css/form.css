@@ -26,7 +26,7 @@ form ul{
 }
 form ul li {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 2fr 5fr;
   justify-content:center;
   align-content:center;
   margin:1em auto;

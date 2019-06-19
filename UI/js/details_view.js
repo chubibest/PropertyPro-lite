@@ -13,10 +13,11 @@ export default ({
   image
 }) => {
 
-  const displayDetails = detail => {
+    const displayDetails =  detail => {
     const listItem = document.createElement("li");
     listItem.innerText = `${Object.keys(detail)[0]}: ${Object.values(detail)[0]}.`;
     displayDetailsUl.appendChild(listItem);
+    return listItem;
   };
 
   const reader = new FileReader();
@@ -24,16 +25,16 @@ export default ({
   reader.addEventListener("load", () => {
     // populate the div that display results
 
-    displayDetails({Type});
-    displayDetails({Location});
-    displayDetails({Price});
-
+   displayDetails({Type});
+   displayDetails({Location});
+   displayDetails({Price});
+    
     // create open google map button
     const locationButton = document.createElement("button");
     locationButton.innerText = "View Location";
+    locationButton.classList.add('results_button')
     locationButton.addEventListener("click", () => {
       const script = document.createElement("script");
-      console.log('the fucking script was called')
       script.src =
         "https://maps.googleapis.com/maps/api/js?key=AIzaSyBd-1080cYr856p-UyPz2mCW_nrZ5ajr1w&callback=initMap";
       document.body.appendChild(script);
