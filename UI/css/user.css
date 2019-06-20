@@ -4,10 +4,8 @@ input[type='search'] {
   height: 1.5em;
 }
 
-
 #see_all {
   margin-top:40px;
- 
 }
 #see_all p {
   font-size:1.5em;
@@ -22,7 +20,6 @@ input[type='search'] {
   height: 21px;
   color: dimgray;
   border:none;
-
 }
 
 #search_icon {

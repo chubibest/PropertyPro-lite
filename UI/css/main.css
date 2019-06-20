@@ -1,9 +1,7 @@
 html, body {
-  
-  height: 100vh;
+  height: 100%;
   margin:0;
-  width:100vw;
-  
+  width:100%;
 }
 body {
   font-family: 'Open Sans', sans-serif;
@@ -20,7 +18,6 @@ body {
   background-attachment: fixed, fixed;
   background-size: cover, cover;
   background-repeat: no-repeat, no-repeat;
-  /* background: #f6f6f9; */
 }
 header {
   display: flex;
@@ -30,11 +27,8 @@ header {
   background:#ea477de6;
   background:linear-gradient(to top, #dd5783 15%, #de3c72 75%, #e33971 99%, #9c1341 100%);
   color: white;
-  
-  /* color: #f6f6f9; */
 }
 #logo {
-  /* margin:1em auto; */
   font-size:1.3em;
   justify-self: center;
   align-self:center;
@@ -65,7 +59,6 @@ header {
    background: #f6f6f8;
    color:#2A88AD;
    font-weight: bolder;
-  
 }
 #motto h4{
   justify-self: left;
@@ -75,7 +68,6 @@ header {
 
 a {
   text-decoration: none;
-
 }
 
 button {
@@ -113,9 +105,6 @@ footer{
 }
 
 @media (max-width:900px){
-  /* #logo{
-    margin-left:auto;
-  } */
   #motto h4{
     justify-self:center;
     margin:1.5em auto;
@@ -143,5 +132,4 @@ footer{
   .display{
   display:none;
   }
-  
 }

@@ -7,5 +7,4 @@ const handleOptionsDisplay = () => {
   })
 }
 
-
 menu.addEventListener('click', handleOptionsDisplay)
