@@ -3,8 +3,10 @@ main {
   display:flex;
   flex-direction: row;
   justify-content: space-evenly;
-  margin-top: 6em;
   color:white;
+  }
+  .below_logo{
+    margin-top:6em;
   }
   #first_animation{
     font-size:1.5em;
@@ -58,15 +60,12 @@ main {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+    }
+    #big_button{
       margin:2em auto;
     }
-    #slider_wrapper{
-      margin: 3em auto;
-     }
   }
 
   @media (max-width:700px){
-    main{
-      margin:1em auto;
-    }
+    
   }

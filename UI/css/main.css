@@ -3,17 +3,20 @@ html, body {
   margin:0;
   width:100%;
 }
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 20px;
   min-width: 330px;
   display:grid;
-  grid-template-rows:auto auto 1fr auto;
+  grid-template-rows:auto auto 1fr;
   text-align: center;
   box-sizing:border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  background-color: rgba(0,0,0,.9);
+}
+
+main{
   background-image:linear-gradient(0deg, rgba(0,0,0, 0.5), rgba(0,0,0, 0.5)), url('../images/lithouse4.jpg');
   background-attachment: fixed, fixed;
   background-size: cover, cover;
@@ -24,7 +27,6 @@ header {
   justify-content: space-between;
   width:100%;
   border-bottom: 1px solid transparent;
-  background:#ea477de6;
   background:linear-gradient(to top, #dd5783 15%, #de3c72 75%, #e33971 99%, #9c1341 100%);
   color: white;
 }
@@ -96,8 +98,8 @@ button:hover{
 }
 
 footer{
+  background:linear-gradient(to top, #dd5783 15%, #de3c72 75%, #e33971 99%, #9c1341 100%);
   font-size:.5em;
-  margin-top:.5em;
 }
 
 #menu{

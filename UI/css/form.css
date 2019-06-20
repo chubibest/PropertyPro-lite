@@ -50,6 +50,9 @@ border: 2px solid #fff;
 box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.33);
 }
 
+form ul li input:focus{
+  border-color:none;
+}
 button {
   background:#2A88AD;
   width: 10em;
