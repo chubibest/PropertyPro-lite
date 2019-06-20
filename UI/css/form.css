@@ -1,10 +1,8 @@
 form {
   margin: 2em auto;
-  /* margin-top: 2em; */
-  min-width:400px;
+  min-width:300px;
   font: normal 30px 'Bitter', serif;
   width:50%;
-  /* box-shadow: inset -8px 0px 0 #2A88AD; */
   box-sizing: content-box;
   border-bottom:2px solid transparent;
   background-color: #f6f6f8;
@@ -17,7 +15,6 @@ form {
   color:#f6f6f8; 
   padding-bottom:1em;
   font-size:.7em;
-  /* border-top-left-radius:10px; */
   border-radius: .5em .5em 0 0;
   margin-bottom:2em;
 }
@@ -36,7 +33,6 @@ form ul li label{
  font-size: .5em;
  color:dimgrey;
  font-family: 'Open Sans', sans-serif;
- /* font-weight:lighters; */
 }
 
 form ul li label::after{
