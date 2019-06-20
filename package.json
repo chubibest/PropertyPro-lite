@@ -1,0 +1,34 @@
+{
+  "name": "propertypro-lite",
+  "version": "1.0.0",
+  "description": "a platform where people can create and/or search for properties for sale or rent",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require @babel/polyfill server/**/*.test.js",
+    "start-dev": "babel-node <filename>"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prieste/PropertyPro-lite.git"
+  },
+  "author": "Chubi Best",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prieste/PropertyPro-lite/issues"
+  },
+  "homepage": "https://github.com/prieste/PropertyPro-lite#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "mocha": "^6.1.4"
+  }
+}
