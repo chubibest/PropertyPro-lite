@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>PropertyPro-lite</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet'>
@@ -24,9 +23,6 @@
    
     <ul id="nav_links">
         <i class="fa fa-bars fa-2x" id="menu"></i>
-      <!-- <li class="nav_link_items display">
-        <a href="" >Dum</a>
-      </li> -->
       <li class="nav_link_items display">
         <a href="index.html">Log Out</a>
       </li>
@@ -51,7 +47,7 @@
           </li>
           <li>
               <label for="price">Price</label>
-              <input type="number" id="price" name="price" required>
+              <input type="number" id="price" name="price" required min="0">
           </li>
           <li>
               <label for="image">Poster Image</label>
@@ -86,5 +82,4 @@
   <script type="module" src="js/createad.js"></script>
   
 </body>
-
 </html>
