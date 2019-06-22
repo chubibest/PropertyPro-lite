@@ -1,5 +1,5 @@
 import UserModel from '../models/models';
-import { hashPassword, matchPassword } from '../helpers/helper';
+import { hashPassword, matchPassword, generateToken } from '../helpers/helper';
 
 
 export const createUser = async (req, res) => {
@@ -13,6 +13,7 @@ export const createUser = async (req, res) => {
 
   req.body.password = await hashPassword(password);
   const user = UserModel.createUser(req.body);
+  user.token = generateToken(user.id);
   res.status(200).send({
     status: 'success',
     data: user
@@ -31,6 +32,7 @@ export const login = async (req, res) => {
 
   const match = await matchPassword(password, UserModel.fetchPassword(username));
   if (match) {
+    user.token = generateToken(user.id);
     return res.status(200).send({
       status: 'success',
       data: user
