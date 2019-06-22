@@ -1,5 +1,8 @@
 import { Router } from 'express';
+import dotenv from 'dotenv';
 import { createUser, login } from '../controllers/controller';
+
+dotenv.config();
 
 const router = new Router();
 

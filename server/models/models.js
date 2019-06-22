@@ -50,7 +50,6 @@ class Users {
       return undefined;
     }
     const {
-      // token,
       first_name,
       last_name,
       email,
@@ -59,7 +58,6 @@ class Users {
     } = user;
     return {
       id,
-      // token,
       first_name,
       last_name,
       email
