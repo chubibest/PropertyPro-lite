@@ -46,6 +46,17 @@ const getAdById = (req, res) => {
   }
   successResponse(res, propertyAd);
 };
+
+const getByType = (req, res, next) => {
+  if (!req.query.type) {
+    return next();
+  }
+  const result = property.getAdBytype(req.query.type);
+  if (!result.length) {
+    return successResponse(res, `${req.query.type} unavailable at the moment`);
+  }
+  return successResponse(res, result);
+};
 export {
-  createAd, updateAd, changeStatus, deleteAd, getAllAds, getAdById
+  createAd, updateAd, changeStatus, deleteAd, getAllAds, getAdById, getByType
 };
