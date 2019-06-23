@@ -17,7 +17,7 @@ class Property {
   /**
    *
    * @param {object} data
-   * @returns {object} property
+   * @returns {object} property ad
    */
   createAd(data) {
     const property = {
@@ -33,13 +33,12 @@ class Property {
       image_url: String
     };
     this.Property.push(property);
-    console.log('THIS IS THE PROPERTY ARRAY', this.Property);
     return this.fetchProperty(property.id);
   }
 
   /**
    * @param {integer} propId
-   * @returns {object} data
+   * @returns {object} property ad
    */
   fetchProperty(propId) {
     const property = this.Property.find(prop => propId === prop.id);
@@ -72,9 +71,9 @@ class Property {
 
   /**
    *
-   * @param {integer} ownerId
+   * @param {object} update
    * @param {integer} propertyId
-   *  @returns {object}
+   * @returns {object} property ad
    */
   updateAd(update, propertyId) {
     let index;
@@ -85,12 +84,25 @@ class Property {
     if (!propertyAd) {
       return propertyAd;
     }
-    console.log(index);
     const adUpdate = Object.assign(propertyAd, update, { id: propertyAd.id });
     this.Property.splice(index, 1, adUpdate);
-    console.log(adUpdate);
-    console.log('UPDATED PROPERTY ARRAY', this.Property.length);
-    return adUpdate;
+    return this.fetchProperty(propertyId);
+  }
+
+  /**
+   * @param {integer} ownerid
+   * @param {integer} propertyId
+   * @returns {object} property ad
+   */
+  changeStatus(ownerid, propertyId) {
+    const propertyAd = this.Property.find(
+      property => ownerid === property.owner && propertyId === property.id
+    );
+    if (!propertyAd) {
+      return propertyAd;
+    }
+    propertyAd.status = 'Sold';
+    return this.fetchProperty(propertyId);
   }
 }
 
