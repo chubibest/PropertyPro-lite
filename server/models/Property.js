@@ -122,6 +122,22 @@ class Property {
     this.Property.splice(index, 1);
     return 'Deleted';
   }
+
+  /**
+   * @returns propertyArray
+   */
+  getAllAds() {
+    return this.Property;
+  }
+
+  /**
+   * @param {String} type
+   * @returns result
+   */
+  getAdBytype(type) {
+    const result = this.Property.filter(property => property.type === type);
+    return result;
+  }
 }
 
 export default new Property();

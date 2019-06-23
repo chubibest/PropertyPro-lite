@@ -1,47 +1,32 @@
 import users from '../models/Users';
 import { hashPassword, matchPassword, generateToken } from '../helpers/helper';
+import { successResponse, errorResponse } from './response';
 
 
 export const createUser = async (req, res) => {
   const { body: { username, password } } = req;
   if (users.fetchUser(username)) {
-    return res.status(409).send({
-      status: 'error',
-      error: `username ${username} alerady exists`
-    });
+    return errorResponse(res, `username ${username} alerady exists`, 409);
   }
 
   req.body.password = await hashPassword(password);
   const user = users.createUser(req.body);
   user.token = generateToken(user.id);
-  res.status(200).send({
-    status: 'success',
-    data: user
-  });
+  successResponse(res, user);
 };
 
 export const login = async (req, res) => {
   const { body: { password, username } } = req;
   const user = users.fetchUser(username);
   if (!user) {
-    return res.status(404).send({
-      status: 'error',
-      error: `${username} does not exist`
-    });
+    return errorResponse(res, `${username} does not exist`);
   }
-
   const match = await matchPassword(password, users.fetchPassword(username));
   if (match) {
     user.token = generateToken(user.id);
-    return res.status(200).send({
-      status: 'success',
-      data: user
-    });
+    return successResponse(res, user);
   }
   if (!match) {
-    return res.status(401).send({
-      status: 'error',
-      error: 'Incorrect password'
-    });
+    successResponse(res, 'Incorrect Password', 401);
   }
 };
