@@ -76,20 +76,20 @@ class Property {
    * @param {integer} propertyId
    *  @returns {object}
    */
-  fetchPropertyForUpdate(update, propertyId) {
+  updateAd(update, propertyId) {
     let index;
-    const property = this.Property.find((prop, ind) => {
-      if (update.id === prop.owner && propertyId === prop.id) {
-        index = ind;
-      }
+    const propertyAd = this.Property.find((prop, ind) => {
+      index = ind;
       return update.id === prop.owner && propertyId === prop.id;
     });
-    if (!property) {
-      return property;
+    if (!propertyAd) {
+      return propertyAd;
     }
-    const adUpdate = Object.assign(property, update);
+    console.log(index);
+    const adUpdate = Object.assign(propertyAd, update, { id: propertyAd.id });
     this.Property.splice(index, 1, adUpdate);
-    console.log('UPDATED PROPERTY ARRAY', this.Property);
+    console.log(adUpdate);
+    console.log('UPDATED PROPERTY ARRAY', this.Property.length);
     return adUpdate;
   }
 }
