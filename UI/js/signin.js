@@ -1,6 +1,6 @@
-const form = document.querySelector('form')
+const form = document.querySelector('form');
 
 form.addEventListener('submit', (e) => {
-  e.preventDefault()
-  location.href = 'user.html'
-})
+  e.preventDefault();
+  window.location.href = 'user.html';
+});
