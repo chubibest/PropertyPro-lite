@@ -104,6 +104,24 @@ class Property {
     propertyAd.status = 'Sold';
     return this.fetchProperty(propertyId);
   }
+
+  /**
+   * @param {Integer} ownerId
+   * @param {Integer} propertyId
+   * @returns {Sting}
+   */
+  deleteAd(ownerId, propertyId) {
+    let index;
+    const propertyAd = this.Property.find((prop, ind) => {
+      index = ind;
+      return ownerId === prop.owner && propertyId === prop.id;
+    });
+    if (!propertyAd) {
+      return propertyAd;
+    }
+    this.Property.splice(index, 1);
+    return 'Deleted';
+  }
 }
 
 export default new Property();
