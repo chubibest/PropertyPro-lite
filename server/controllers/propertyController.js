@@ -22,4 +22,25 @@ const updateAd = (req, res) => {
   });
 };
 
-export { createAd, updateAd };
+const changeStatus = (req, res) => {
+  const soldAd = property.changeStatus(req.body.id, req.params.property_id);
+  if (!soldAd) {
+    return res.status(403).send({
+      status: 'error',
+      error: 'Unauthorised'
+    });
+  }
+  res.status(200).send({
+    status: 'success',
+    data: soldAd
+  });
+};
+
+// const deleteAd = (req, res) => {
+// req.body.id
+// };
+
+export {
+  createAd, updateAd, changeStatus
+  // deleteAd
+};
