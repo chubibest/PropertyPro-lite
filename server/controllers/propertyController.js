@@ -9,15 +9,13 @@ const createAd = (req, res) => {
 };
 
 const updateAd = (req, res) => {
-  console.log('REQ BODY', req.body);
-  const updatedAd = property.fetchPropertyForUpdate(req.body, req.params.property_id);
+  const updatedAd = property.updateAd(req.body, req.params.property_id);
   if (!updatedAd) {
     return res.status(403).send({
       status: 'error',
       error: 'Unauthorised'
     });
   }
-  console.log('ROM CONTROLLER', updatedAd);
   res.status(200).send({
     status: 'success',
     data: updatedAd
