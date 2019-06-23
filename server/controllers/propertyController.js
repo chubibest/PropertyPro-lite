@@ -36,11 +36,22 @@ const changeStatus = (req, res) => {
   });
 };
 
-// const deleteAd = (req, res) => {
-// req.body.id
-// };
+const deleteAd = (req, res) => {
+  const adStatus = property.deleteAd(req.body.id, req.params.property_id);
+  if (!adStatus) {
+    return res.status(403).send({
+      status: 'error',
+      error: 'Unauthorised'
+    });
+  }
+  res.status(200).send({
+    status: 'success',
+    data: {
+      message: adStatus
+    }
+  });
+};
 
 export {
-  createAd, updateAd, changeStatus
-  // deleteAd
+  createAd, updateAd, changeStatus, deleteAd
 };
