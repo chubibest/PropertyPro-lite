@@ -12,3 +12,5 @@ app.use(express.static('UI'));
 
 
 app.listen(PORT);
+
+export default app;
