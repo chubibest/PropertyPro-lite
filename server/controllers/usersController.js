@@ -27,6 +27,6 @@ export const login = async (req, res) => {
     return successResponse(res, user);
   }
   if (!match) {
-    successResponse(res, 'Incorrect Password', 401);
+    errorResponse(res, 'Incorrect Password', 401);
   }
 };
