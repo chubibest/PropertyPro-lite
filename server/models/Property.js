@@ -140,4 +140,10 @@ class Property {
   }
 }
 
-export default new Property();
+const testProperty = new Property();
+const devProperty = new Property();
+
+const property = process.env.NODE_ENV === 'test' ? testProperty : devProperty;
+
+
+export default property;

@@ -77,7 +77,6 @@ class Users {
 
 const testUsers = new Users();
 const devUsers = new Users();
-// eslint-disable-next-line import/no-mutable-exports
 
 const users = process.env.NODE_ENV === 'test' ? testUsers : devUsers;
 

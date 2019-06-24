@@ -13,6 +13,9 @@ const user = {
   firstname: 'john',
   email: '6789'
 };
+
+// let jwtToken;
+
 describe('Create user route', () => {
   it('should create a user given correct input', async () => {
     const { status, text } = await chai.request(app)
@@ -37,6 +40,8 @@ describe('Login user route', () => {
       .send(user);
     expect(status).to.eql(200);
     expect(JSON.parse(text).data.last_name).to.eql('gotti');
+    // const { data: { token } } = JSON.parse(text);
+    // jwtToken = token;
   });
   it('Should return error message with conflicting user names', async () => {
     const { status, text } = await chai.request(app)
@@ -53,3 +58,5 @@ describe('Login user route', () => {
     expect(JSON.parse(text).error).to.eql('Incorrect Password');
   });
 });
+
+// export default jwtToken;
