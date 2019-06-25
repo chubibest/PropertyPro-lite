@@ -21,12 +21,14 @@
   },
   "homepage": "https://github.com/prieste/PropertyPro-lite#readme",
   "dependencies": {
+    "@hapi/joi": "^15.1.0",
     "bcrypt": "^3.0.6",
     "biguint-format": "^1.0.1",
     "coveralls": "^3.0.4",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "flake-idgen": "^1.1.2",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0"
   },
