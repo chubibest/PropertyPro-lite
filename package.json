@@ -4,11 +4,10 @@
   "description": "a platform where people can create and/or search for properties for sale or rent",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html mocha --require @babel/register --require @babel/polyfill server/tests/index.test.js",
+    "test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html mocha --require @babel/register --require @babel/polyfill server/tests/index.test.js --exit",
     "start-dev": "nodemon -x 'babel-node server/index.js'",
     "test-dev": "nodemon -x 'npm test'",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "report": "nyc report --reporter=lcov"
+    "coverage": "npm report | coveralls"
   },
   "repository": {
     "type": "git",
