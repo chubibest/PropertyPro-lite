@@ -7,7 +7,8 @@ const ad = {
   type: '2 bedroom',
   state: 'kogi',
   city: 'lokoja',
-  price: '3000',
+  address: 'abaji abuja',
+  price: 3000,
   image_url: 'djkdfds'
 };
 
@@ -49,7 +50,7 @@ describe('Property routes', () => {
         .set('authorization', jwtToken)
         .send(ad);
       expect(status).to.eql(200);
-      expect(JSON.parse(text).data.price).to.eql('3000');
+      expect(JSON.parse(text).data.price).to.eql(3000);
       propid = JSON.parse(text).data.id;
     });
     it('should return an error for unauthenticated user', async () => {

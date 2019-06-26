@@ -7,11 +7,12 @@ chai.use(chaiHttp);
 const user = {
   username: 'johngotti',
   address: 'newyork city',
-  phonenumber: '6789',
+  phonenumber: 6789,
   password: 'jkjlks',
   lastname: 'gotti',
   firstname: 'john',
-  email: '6789'
+  email: 'johngotti@gmail.com',
+  isAdmin: 'false'
 };
 
 describe('Create user route', () => {
@@ -35,14 +36,20 @@ describe('Login user route', () => {
   it('should login a user given correct input', async () => {
     const { status, text } = await chai.request(app)
       .post('/api/v1/auth/signin')
-      .send(user);
+      .send({
+        username: 'johngotti',
+        password: 'jkjlks'
+      });
     expect(status).to.eql(200);
     expect(JSON.parse(text).data.last_name).to.eql('gotti');
   });
-  it('Should return error message with conflicting user names', async () => {
+  it('Should return an error given a non existent username', async () => {
     const { status, text } = await chai.request(app)
       .post('/api/v1/auth/signin')
-      .send({ username: 'emeka' });
+      .send({
+        username: 'emeka',
+        password: 'jkjlks'
+      });
     expect(status).to.eql(404);
     expect(JSON.parse(text).error).to.eql('emeka does not exist');
   });
