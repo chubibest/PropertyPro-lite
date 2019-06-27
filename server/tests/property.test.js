@@ -56,10 +56,18 @@ describe('Property routes', () => {
     it('should return an error for unauthenticated user', async () => {
       const { status, text } = await chai.request(app)
         .post('/api/v1/property')
-        .set('authorization', 'ABCDEFG HIJKLMNOP QRSTUVWXYZ')
+        .set('authorization', 'ABCDEFG HIJKLMNOP QRSTUV WXYZ')
         .send(ad);
       expect(status).to.eql(403);
-      expect(JSON.parse(text).error).to.eql('No token');
+      expect(JSON.parse(text).error).to.eql('Invalid token');
+    });
+    it('should return an error for bad data', async () => {
+      const { status, text } = await chai.request(app)
+        .post('/api/v1/property')
+        .set('authorization', jwtToken)
+        .send({ crohns: 'disease' });
+      expect(status).to.eql(400);
+      expect(JSON.parse(text).error).to.eql('"type" is required');
     });
   });
 
@@ -79,6 +87,14 @@ describe('Property routes', () => {
         .send({ state: 'edo', city: 'ekosodin' });
       expect(status).to.eql(404);
       expect(JSON.parse(text).error).to.eql('Not Found');
+    });
+    it('should return an error; given bad input', async () => {
+      const { status, text } = await chai.request(app)
+        .patch(`/api/v1/property/${propid}`)
+        .set('authorization', jwtToken)
+        .send({ zues: 'lagos', city: 'ikeja' });
+      expect(status).to.eql(400);
+      expect(JSON.parse(text).error).to.eql('"zues" is not allowed');
     });
   });
 
@@ -110,7 +126,7 @@ describe('Property routes', () => {
       expect(status).to.eql(200);
       expect(JSON.parse(text).data.length).to.eql(1);
     });
-    it('should a message when there are no ads of specific type', async () => {
+    it('should ad of given type', async () => {
       const { status, text } = await chai.request(app)
         .get('/api/v1/property?type=2+bedroom')
         .set('authorization', jwtToken)
@@ -141,12 +157,11 @@ describe('Property routes', () => {
 
   describe('Delete ad', () => {
     it('should delete an ad', async () => {
-      const { status, text } = await chai.request(app)
+      const { status } = await chai.request(app)
         .delete(`/api/v1/property/${propid}`)
         .set('authorization', jwtToken)
         .send();
-      expect(status).to.eql(200);
-      expect(JSON.parse(text).data).to.eql('Deleted');
+      expect(status).to.eql(204);
     });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)

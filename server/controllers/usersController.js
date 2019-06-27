@@ -12,7 +12,7 @@ export const createUser = async (req, res) => {
   req.body.password = await hashPassword(password);
   const user = users.createUser(req.body);
   user.token = generateToken(user.id);
-  successResponse(res, user);
+  successResponse(res, user, 201);
 };
 
 export const login = async (req, res) => {

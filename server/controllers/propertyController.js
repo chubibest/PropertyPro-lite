@@ -28,7 +28,7 @@ const deleteAd = (req, res) => {
   if (!adStatus) {
     return errorResponse(res);
   }
-  successResponse(res, adStatus);
+  successResponse(res, adStatus, 204);
 };
 
 const getAllAds = (req, res) => {
