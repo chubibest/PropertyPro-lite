@@ -5,3 +5,4 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/3c89d7225a973f345f52/maintainability)](https://codeclimate.com/github/prieste/PropertyPro-lite/maintainability)
 ### A platform where you can create and/or search for properties for sale or rent
 
+    
