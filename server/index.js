@@ -1,10 +1,15 @@
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 import router from './router/router';
+
+const swaggerDocument = YAML.load(`${process.cwd()}/server/docs/docs.yaml`);
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);

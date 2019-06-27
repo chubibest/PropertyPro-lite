@@ -75,9 +75,4 @@ class Users {
   }
 }
 
-const testUsers = new Users();
-const devUsers = new Users();
-
-const users = process.env.NODE_ENV === 'test' ? testUsers : devUsers;
-
-export default users;
+export default new Users();

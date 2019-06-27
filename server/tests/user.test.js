@@ -20,7 +20,7 @@ describe('Create user route', () => {
     const { status, text } = await chai.request(app)
       .post('/api/v1/auth/signup')
       .send(user);
-    expect(status).to.eql(200);
+    expect(status).to.eql(201);
     expect(JSON.parse(text).data.last_name).to.eql('gotti');
   });
   it('Should return error message with conflicting user names', async () => {
@@ -29,6 +29,13 @@ describe('Create user route', () => {
       .send(user);
     expect(status).to.eql(409);
     expect(JSON.parse(text).error).to.eql('username johngotti alerady exists');
+  });
+  it('should return an error for bad input', async () => {
+    const { status, text } = await chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send({ crohns: 'disease' });
+    expect(status).to.eql(400);
+    expect(JSON.parse(text).error).to.eql('"username" is required');
   });
 });
 
@@ -53,11 +60,20 @@ describe('Login user route', () => {
     expect(status).to.eql(404);
     expect(JSON.parse(text).error).to.eql('emeka does not exist');
   });
-  it('Should return error message with conflicting user names', async () => {
+  it('Should for incorrect password', async () => {
     const { status, text } = await chai.request(app)
       .post('/api/v1/auth/signin')
       .send({ username: 'johngotti', password: 'hfjdkdfd' });
     expect(status).to.eql(401);
     expect(JSON.parse(text).error).to.eql('Incorrect Password');
+  });
+  it('should return an error; given bad input', async () => {
+    const { status, text } = await chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        username: 'johngotti',
+      });
+    expect(status).to.eql(400);
+    expect(JSON.parse(text).error).to.eql('"password" is required');
   });
 });

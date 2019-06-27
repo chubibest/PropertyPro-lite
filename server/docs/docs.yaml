@@ -1,0 +1,284 @@
+swagger: '2.0'
+info:
+  description: >-
+    A platform where you can create and/or search for properties for sale or
+    rent.
+  version: 1.0.0
+  title: PropertyPro-lite
+  contact:
+    email: gokayirayol@gmail.com
+host: Heroku
+tags:
+  - name: User
+    description: Sign up and login routes
+  - name: Property
+    description: Property routes
+  - name: Flags
+    description: Flag a property
+schemes:
+  - https
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - User
+      summary: Creates a new user
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Application user
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+              username:
+                type: string
+              password:
+                type: string
+              phonenumber:
+                type: string
+              address:
+                type: string
+      responses:
+        '201':
+          description: User created
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid data
+        '409':
+          description: User already exists
+  /auth/signin:
+    post:
+      tags:
+        - User
+      summary: Logs user in to system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Application user
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        '201':
+          description: Logged in
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid data
+        '401':
+          description: Incorrect password
+        '404':
+          description: Not found
+  /property:
+    post:
+      tags:
+        - Property
+      summary: Creates an ad
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Property details
+          required: true
+          schema:
+            $ref: '#/definitions/Ad'
+      responses:
+        '201':
+          description: Ad created
+          schema:
+            $ref: '#/definitions/AdResponse'
+        '400':
+          description: Invalid data
+        '403':
+          description: Invalid token
+    get:
+      tags:
+        - Property
+      summary: Returns an array of ads
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Ads array
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AdResponse'
+        '403':
+          description: Invalid token
+        '404':
+          description: Not found
+  '/property/{property_id}':
+    patch:
+      tags:
+        - Property
+      summary: Updates an ad
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: property_id
+          description: Property id
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: update details
+          schema:
+            $ref: '#/definitions/Ad'
+      responses:
+        '201':
+          description: Ad updated
+          schema:
+            $ref: '#/definitions/AdResponse'
+        '400':
+          description: Invalid data
+        '403':
+          description: Invalid token
+        '404':
+          description: Not found
+    delete:
+      tags:
+        - Property
+      summary: Deletes an ad
+      produces:
+        - application/json
+      parameters:
+        - name: property_id
+          in: path
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Success
+        '403':
+          description: Invalid token
+        '404':
+          description: Not found
+    get:
+      tags:
+        - Property
+      summary: Returns an add
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: property_id
+          description: Property id
+          required: true
+          type: string
+      responses:
+        '201':
+          description: Ad updated
+          schema:
+            $ref: '#/definitions/AdResponse'
+        '403':
+          description: Invalid token
+        '404':
+          description: Not found
+  '/property/{property_id}/sold':
+    patch:
+      tags:
+        - Property
+      summary: Marks property as sold
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: property_id
+          in: path
+          description: property id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Successful
+          schema:
+            $ref: '#/definitions/AdResponse'
+        '403':
+          description: Invalid token
+        '404':
+          description: Not found
+definitions:
+  User:
+    type: object
+    properties:
+      token:
+        type: string
+      Id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+  AdResponse:
+    type: object
+    properties:
+      status:
+        type: string
+      Id:
+        type: integer
+      price:
+        type: integer
+      state:
+        type: string
+      city:
+        type: string
+      address:
+        type: string
+      type:
+        type: string
+      Image_url:
+        type: string
+      Created_on:
+        type: integer
+  Ad:
+    type: object
+    properties:
+      price:
+        type: integer
+      state:
+        type: string
+      city:
+        type: string
+      address:
+        type: string
+      type:
+        type: string
+      Image_url:
+        type: string
+      Created_on:
+        type: integer
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
