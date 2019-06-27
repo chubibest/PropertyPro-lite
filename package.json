@@ -4,8 +4,11 @@
   "description": "a platform where people can create and/or search for properties for sale or rent",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require @babel/polyfill server/**/*.test.js",
-    "start-dev": "nodemon -x 'babel-node server/index.js'"
+    "test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html mocha --require @babel/register --require @babel/polyfill server/tests/index.test.js --exit",
+    "start-dev": "nodemon -x 'babel-node server/index.js'",
+    "test-dev": "nodemon -x 'npm test'",
+    "coverage": "npm report | coveralls",
+    "yaml-lint": "yamllint .travis.yml"
   },
   "repository": {
     "type": "git",
@@ -18,13 +21,18 @@
   },
   "homepage": "https://github.com/prieste/PropertyPro-lite#readme",
   "dependencies": {
+    "@hapi/joi": "^15.1.0",
     "bcrypt": "^3.0.6",
     "biguint-format": "^1.0.1",
+    "coveralls": "^3.0.4",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "flake-idgen": "^1.1.2",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "swagger-ui-express": "^4.0.6",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -32,10 +40,16 @@
     "@babel/node": "^7.4.5",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
     "mocha": "^6.1.4",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "nyc": "^14.1.1",
+    "yaml-lint": "^1.2.4"
   }
 }

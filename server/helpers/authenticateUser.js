@@ -14,6 +14,6 @@ export default async (req, res, next) => {
     req.body.id = id;
     next();
   } catch (error) {
-    res.status(403).json({ status: 'error', error: 'No token' });
+    res.status(403).json({ status: 'error', error: 'Invalid token' });
   }
 };
