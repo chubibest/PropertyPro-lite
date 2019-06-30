@@ -24,6 +24,7 @@
     "@hapi/joi": "^15.1.0",
     "bcrypt": "^3.0.6",
     "biguint-format": "^1.0.1",
+    "cloudinary": "^1.14.0",
     "coveralls": "^3.0.4",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
