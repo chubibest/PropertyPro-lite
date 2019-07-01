@@ -15,18 +15,16 @@ export const createUser = async (req, res) => {
   successResponse(res, user, 201);
 };
 
-export const login = async (req, res) => {
+export const login = (req, res) => {
   const { body: { password, username } } = req;
   const user = users.fetchUser(username);
   if (!user) {
     return errorResponse(res, `${username} does not exist`);
   }
-  const match = await matchPassword(password, users.fetchPassword(username));
-  if (match) {
-    user.token = generateToken(user.id);
-    return successResponse(res, user);
-  }
+  const match = matchPassword(password, users.fetchPassword(username));
   if (!match) {
-    errorResponse(res, 'Incorrect Password', 401);
+    return errorResponse(res, 'Incorrect Password', 401);
   }
+  user.token = generateToken(user.id);
+  return successResponse(res, user);
 };

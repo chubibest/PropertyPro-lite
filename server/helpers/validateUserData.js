@@ -1,4 +1,5 @@
 import Joi from '@hapi/joi';
+import validate from '../middleware/validationmiddleware';
 
 const signUpSchema = Joi.object().keys({
   username: Joi.string().trim().alphanum().min(3)
@@ -19,26 +20,6 @@ const signInSchema = {
   password: Joi.string().regex(/.{3,30}/).required()
 };
 
-export const validateSignup = async ({ body }, res, next) => {
-  try {
-    await Joi.validate(body, signUpSchema);
-    next();
-  } catch (e) {
-    res.status(400).send({
-      status: 'error',
-      error: e.details[0].message
-    });
-  }
-};
+export const validateSignup = validate(signUpSchema);
 
-export const validateSignin = async ({ body }, res, next) => {
-  try {
-    await Joi.validate(body, signInSchema);
-    next();
-  } catch (e) {
-    res.status(400).send({
-      status: 'error',
-      error: e.details[0].message
-    });
-  }
-};
+export const validateSignin = validate(signInSchema);
