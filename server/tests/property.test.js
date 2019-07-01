@@ -61,6 +61,14 @@ describe('Property routes', () => {
       expect(status).to.eql(403);
       expect(JSON.parse(text).error).to.eql('Invalid token');
     });
+    it('should return an error for unauthenticated user', async () => {
+      const { status, text } = await chai.request(app)
+        .post('/api/v1/property')
+        .set('authorization', '')
+        .send(ad);
+      expect(status).to.eql(403);
+      expect(JSON.parse(text).error).to.eql('Please provide a token');
+    });
     it('should return an error for bad data', async () => {
       const { status, text } = await chai.request(app)
         .post('/api/v1/property')

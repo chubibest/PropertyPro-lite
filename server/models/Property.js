@@ -46,27 +46,10 @@ class Property {
       return property;
     }
     const {
-      id,
-      status,
-      type,
-      state,
-      city,
-      address,
-      price,
-      created_on,
-      image_url
+      owner,
+      ...responseObject
     } = property;
-    return {
-      id,
-      status,
-      type,
-      state,
-      city,
-      address,
-      price,
-      created_on,
-      image_url
-    };
+    return responseObject;
   }
 
   /**

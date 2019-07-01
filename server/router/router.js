@@ -6,7 +6,7 @@ import { validatePostAd, validateUpdateAd } from '../helpers/validatePropertyDat
 import {
   createAd, updateAd, changeStatus, deleteAd, getAllAds, getAdById, getByType
 } from '../controllers/propertyController';
-import auth from '../helpers/authenticateUser';
+import auth from '../middleware/authmiddleware';
 
 dotenv.config();
 
