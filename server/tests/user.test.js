@@ -11,8 +11,7 @@ const user = {
   password: 'jkjlks',
   lastname: 'gotti',
   firstname: 'john',
-  email: 'johngotti@gmail.com',
-  isAdmin: 'false'
+  email: 'johngotti@gmail.com'
 };
 
 describe('Create user route', () => {

@@ -10,8 +10,7 @@ const signUpSchema = Joi.object().keys({
   lastname: Joi.string().trim().strict(),
   phonenumber: Joi.number().required(),
   address: Joi.string().trim().required(),
-  email: Joi.string().trim().email({ minDomainSegments: 2 }).required(),
-  isAdmin: Joi.string().trim().required()
+  email: Joi.string().trim().email({ minDomainSegments: 2 }).required()
 });
 
 const signInSchema = {

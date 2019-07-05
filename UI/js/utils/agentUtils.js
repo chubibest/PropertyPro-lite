@@ -1,12 +1,10 @@
 const buttonsDiv = document.querySelector('#populateButtons');
 const handleUpdate = () => {
   window.location.href = 'createad.html';
-  // location.reload()
 };
 
 const handleDelete = () => {
   window.location.href = 'user.html';
-  // location.reload()
 };
 const handleMark = (e) => {
   const listItem = document.querySelector('#listItem');
