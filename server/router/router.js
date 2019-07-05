@@ -20,5 +20,7 @@ router.patch('/api/v1/property/:property_id/sold', auth, changeStatus);
 router.delete('/api/v1/property/:property_id', auth, deleteAd);
 router.get('/api/v1/property', auth, getByType, getAllAds);
 router.get('/api/v1/property/:property_id', auth, getAdById);
+// POST /auth/<:user-email>/reset_password
+// Reset user’s password.
 
 export default router;
