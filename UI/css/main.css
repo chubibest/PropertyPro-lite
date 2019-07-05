@@ -106,6 +106,11 @@ footer{
   display:none;
 }
 
+.tooltips{
+  font-size: .4em;
+  color: red;
+}
+
 @media (max-width:900px){
   #motto h4{
     justify-self:center;

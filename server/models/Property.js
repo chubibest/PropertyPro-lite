@@ -30,7 +30,7 @@ class Property {
       address: data.address,
       type: data.type,
       created_on: new Date().getTime(),
-      image_url: String
+      image_url: data.image_url
     };
     this.Property.push(property);
     return this.fetchProperty(property.id);

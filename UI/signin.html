@@ -39,12 +39,24 @@
         <li>
             <label for="username">Username</label>
             <input type="text" id="username" required pattern="[a-zA-Z]{2,15}[a-zA-Z0-9]{0,5}"
-            title="john123" required autofocus>
+            title="john123" required autofocus name='username' onfocus="clearUser()">
+            <span class="tooltips" id="usernamett"></span>
+            <script>
+              const clearUser = () => {
+                document.querySelector('#usernamett').textContent = ''
+              }
+            </script>
         </li>
         <li>
             <label for="password">Password</label>
             <input type="password" id="password" required pattern=".{5,20}"
-            title="john123">
+            title="john123" name="password" onfocus="clearPassword()">
+            <span class="tooltips" id="passwordtt"></span>
+            <script>
+                const clearPassword = () => {
+                  document.querySelector('#passwordtt').textContent = ''
+                }
+              </script>
         </li>
       </ul>
       <button id="sign_in">
