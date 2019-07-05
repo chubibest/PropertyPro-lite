@@ -7,6 +7,7 @@ export default signInSchema => async ({ body }, res, next) => {
   } catch (e) {
     res.status(400).send({
       status: 'error',
+      statusCode: 400,
       error: e.details[0].message
     });
   }

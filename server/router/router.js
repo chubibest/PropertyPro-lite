@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import dotenv from 'dotenv';
 import { createUser, login } from '../controllers/usersController';
-import { validateSignup, validateSignin } from '../helpers/validateUserData';
-import { validatePostAd, validateUpdateAd } from '../helpers/validatePropertyData';
+import { validateSignup, validateSignin } from '../validators/validateUser';
+import { validatePostAd, validateUpdateAd } from '../validators/validateProperty';
 import {
   createAd, updateAd, changeStatus, deleteAd, getAllAds, getAdById, getByType
 } from '../controllers/propertyController';

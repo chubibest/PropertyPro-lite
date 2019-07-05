@@ -8,7 +8,11 @@
     "start-dev": "nodemon -x 'babel-node server/index.js'",
     "test-dev": "nodemon -x 'npm test'",
     "coverage": "npm report | coveralls",
-    "yaml-lint": "yamllint .travis.yml"
+    "yaml-lint": "yamllint .travis.yml",
+    "build": "rm -rf dist/ && babel server/ -d dist/ --ignore server/test",
+    "dev": "nodemon --exec babel-node server",
+    "dev-test": "nodemon --exec npm test",
+    "start": "node dist"
   },
   "repository": {
     "type": "git",
@@ -22,6 +26,7 @@
   "homepage": "https://github.com/prieste/PropertyPro-lite#readme",
   "dependencies": {
     "@hapi/joi": "^15.1.0",
+    "@babel/polyfill": "^7.4.4",
     "bcrypt": "^3.0.6",
     "biguint-format": "^1.0.1",
     "cloudinary": "^1.14.0",
@@ -32,6 +37,7 @@
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
+    "node-pre-gyp": "^0.13.0",
     "swagger-ui-express": "^4.0.6",
     "yamljs": "^0.3.0"
   },
@@ -39,7 +45,6 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
-    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
     "chai": "^4.2.0",
