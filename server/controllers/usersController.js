@@ -1,30 +1,42 @@
-import users from '../models/Users';
+import { fetchUser, createUser } from '../modelController/user';
 import { hashPassword, matchPassword, generateToken } from '../helpers/helper';
 import { successResponse, errorResponse } from './response';
 
 
-export const createUser = async (req, res) => {
+export const createUsers = async (req, res) => {
   const { body: { username, password } } = req;
-  if (users.fetchUser(username)) {
-    return errorResponse(res, `username ${username} alerady exists`, 409);
+  try {
+    const existingUser = await fetchUser(username);
+    if (existingUser) {
+      return errorResponse(res, `username ${username} alerady exists`, 409);
+    }
+    req.body.password = await hashPassword(password);
+    const user = await createUser(req.body);
+    user.token = generateToken(user.id);
+    successResponse(res, user, 201);
+  } catch (e) {
+    if (e.constraint === 'users_email_key') {
+      return errorResponse(res, 'email already exists', 500);
+    }
+    return errorResponse(res, 'something went wrong', 500);
   }
-
-  req.body.password = await hashPassword(password);
-  const user = users.createUser(req.body);
-  user.token = generateToken(user.id);
-  successResponse(res, user, 201);
 };
 
-export const login = (req, res) => {
+export const login = async (req, res) => {
   const { body: { password, username } } = req;
-  const user = users.fetchUser(username);
-  if (!user) {
-    return errorResponse(res, `${username} does not exist`);
+  try {
+    const user = await fetchUser(username);
+    if (!user) {
+      return errorResponse(res, `${username} does not exist`);
+    }
+    const match = matchPassword(password, user.password);
+    if (!match) {
+      return errorResponse(res, 'Incorrect Password', 401);
+    }
+    delete user.password;
+    user.token = generateToken(user.id);
+    return successResponse(res, user);
+  } catch (e) {
+    return errorResponse(res, 'something went wrong', 500);
   }
-  const match = matchPassword(password, users.fetchPassword(username));
-  if (!match) {
-    return errorResponse(res, 'Incorrect Password', 401);
-  }
-  user.token = generateToken(user.id);
-  return successResponse(res, user);
 };

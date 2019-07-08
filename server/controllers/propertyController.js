@@ -1,10 +1,15 @@
 import property from '../models/Property';
+import { createAd } from '../modelController/property';
 import { successResponse, errorResponse } from './response';
 
 
-const createAd = (req, res) => {
-  const propertyAd = property.createAd(req.body);
-  successResponse(res, propertyAd);
+const createAds = async (req, res) => {
+  try {
+    const propertyAd = await createAd(req.body);
+    successResponse(res, propertyAd);
+  } catch (e) {
+    errorResponse(res, e, 500);
+  }
 };
 
 const updateAd = (req, res) => {
@@ -58,5 +63,5 @@ const getByType = (req, res, next) => {
   return successResponse(res, result);
 };
 export {
-  createAd, updateAd, changeStatus, deleteAd, getAllAds, getAdById, getByType
+  createAds, updateAd, changeStatus, deleteAd, getAllAds, getAdById, getByType
 };
