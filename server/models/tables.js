@@ -30,13 +30,13 @@ const query = async (queryText) => {
 const createUsersTable = async () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
     users(
-      id INTEGER PRIMARY KEY UNIQUE,
+      id BIGINT PRIMARY KEY UNIQUE,
       email VARCHAR(128) UNIQUE,
       first_name VARCHAR(128) NOT NULL,
       last_name VARCHAR(128) NOT NULL,
       username VARCHAR(128) UNIQUE NOT NULL,
       password VARCHAR(128) NOT NULL,
-      phoneNumber INTEGER NOT NULL,
+      phoneNumber BIGINT NOT NULL,
       address VARCHAR(128) NOT NULL,
       is_admin BOOLEAN DEFAULT false
     )`;
@@ -46,10 +46,10 @@ const createUsersTable = async () => {
 const createPropertyTable = async () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
   property(
-    id INTEGER PRIMARY KEY UNIQUE,
-    owner INTEGER NOT NULL,
+    id BIGINT PRIMARY KEY UNIQUE,
+    owner BIGINT NOT NULL,
     status VARCHAR(128) DEFAULT 'Available',
-    price INTEGER NOT NULL,
+    price BIGINT NOT NULL,
     city VARCHAR(128) NOT NULL,
     state VARCHAR(128) NOT NULL,
     address VARCHAR(128) NOT NULL,
@@ -64,8 +64,8 @@ const createPropertyTable = async () => {
 const createFlagsTable = async () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
   flags(
-    id INTEGER PRIMARY KEY UNIQUE,
-    property_id INTEGER NOT NULL,
+    id BIGINT PRIMARY KEY UNIQUE,
+    property_id BIGINT NOT NULL,
     created_on TIMESTAMP NOT NULL DEFAULT now(),
     reason VARCHAR(128) NOT NULL,
     description VARCHAR(128),

@@ -11,7 +11,7 @@ export default async (req, res, next) => {
   }
   try {
     const { id } = await verifyToken(token);
-    req.body.id = id;
+    req.body.owner = id;
     next();
   } catch (error) {
     res.status(403).json({ status: 'error', error: 'Invalid token' });
