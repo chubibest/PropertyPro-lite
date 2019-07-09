@@ -1,7 +1,7 @@
 import FlakeId from 'flake-idgen';
 import intformat from 'biguint-format';
 import {
-  createAdQuery, changeStatusQuery, getStatus, removeItemQuery
+  createAdQuery, changeStatusQuery, getStatus, removeItemQuery, getAd
 } from '../queries/queries';
 import query from '../configurations/dbconfig';
 
@@ -28,5 +28,10 @@ export const updateStatus = async (owner, propid) => {
 
 export const deleteAd = async (owner, propid) => {
   const [result] = await query(removeItemQuery(owner, propid));
+  return result;
+};
+
+export const fetchAd = async (id) => {
+  const [result] = await query(getAd(id));
   return result;
 };
