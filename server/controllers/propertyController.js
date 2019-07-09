@@ -1,6 +1,6 @@
-import property from '../models/Property';
 import {
-  createAd, updateStatus, deleteAd, fetchAd, fetchAds, fetchBytype
+  createAd, updateStatus, deleteAd, fetchAd, fetchAds, fetchBytype,
+  updateAdDetails
 } from '../modelController/property';
 import { successResponse, errorResponse } from './response';
 
@@ -14,16 +14,13 @@ const createAds = async (req, res) => {
   }
 };
 
-
-// fghjk
-const updateAd = (req, res) => {
-  const updatedAd = property.updateAd(req.body, req.params.property_id);
+const updateAd = async (req, res) => {
+  const updatedAd = await updateAdDetails(req.body, req.body.owner, req.params.property_id);
   if (!updatedAd) {
     return errorResponse(res);
   }
   successResponse(res, updatedAd);
 };
-// ghjkl
 
 const changeStatus = async (req, res) => {
   const soldAd = await updateStatus(req.body.owner, req.params.property_id);
