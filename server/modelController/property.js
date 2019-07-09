@@ -1,7 +1,7 @@
 import FlakeId from 'flake-idgen';
 import intformat from 'biguint-format';
 import {
-  createAdQuery, changeStatusQuery, getStatus, removeItemQuery, getAd, getAllQuery
+  createAdQuery, changeStatusQuery, getStatus, removeItemQuery, getAd, getAllQuery, getAdsByType
 } from '../queries/queries';
 import query from '../configurations/dbconfig';
 
@@ -37,3 +37,5 @@ export const fetchAd = async (id) => {
 };
 
 export const fetchAds = () => query(getAllQuery());
+
+export const fetchBytype = type => query(getAdsByType(type));

@@ -47,6 +47,11 @@ export const getAd = id => ({
   values: [id]
 });
 
+export const getAdsByType = type => ({
+  text: 'SELECT * FROM property WHERE type = $1',
+  values: [type]
+});
+
 export const getAllQuery = () => ({
   text: 'SELECT * FROM property'
 });
