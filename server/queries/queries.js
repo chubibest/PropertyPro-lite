@@ -23,6 +23,15 @@ export const createAdQuery = ({
   values: [id, owner, price, city, state, address, type, image_url]
 });
 
+export const updateAdQuery = ({
+  price, city, state, address, type, image_url
+}, owner, id) => ({
+  text: `UPDATE property SET
+  price = $1, city = $2, state = $3, address = $4, type = $5, image_url = $6
+  WHERE Id = $7 and owner = $8 returning *`,
+  values: [price, city, state, address, type, image_url, id, owner]
+});
+
 export const getStatus = (owner, id) => ({
   text: 'SELECT status FROM property  WHERE id = $1 and  owner = $2',
   values: [id, owner]
