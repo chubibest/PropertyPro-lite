@@ -1,6 +1,8 @@
 import FlakeId from 'flake-idgen';
 import intformat from 'biguint-format';
-import { createAdQuery, changeStatusQuery, getStatus } from '../queries/queries';
+import {
+  createAdQuery, changeStatusQuery, getStatus, removeItemQuery
+} from '../queries/queries';
 import query from '../configurations/dbconfig';
 
 
@@ -21,5 +23,10 @@ export const updateStatus = async (owner, propid) => {
   let { status } = property;
   status = status === 'Sold' ? 'Available' : 'Sold';
   const [result] = await query(changeStatusQuery(status, propid));
+  return result;
+};
+
+export const deleteAd = async (owner, propid) => {
+  const [result] = await query(removeItemQuery(owner, propid));
   return result;
 };
