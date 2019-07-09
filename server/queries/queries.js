@@ -42,6 +42,11 @@ export const getAllMyAds = owner => ({
   values: [owner]
 });
 
+export const getAd = id => ({
+  text: 'SELECT * FROM property WHERE id = $1',
+  values: [id]
+});
+
 export const getAllQuery = () => ({
   text: 'SELECT * FROM property'
 });

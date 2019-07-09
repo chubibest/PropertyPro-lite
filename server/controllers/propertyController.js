@@ -1,5 +1,7 @@
 import property from '../models/Property';
-import { createAd, updateStatus, deleteAd } from '../modelController/property';
+import {
+  createAd, updateStatus, deleteAd, fetchAd
+} from '../modelController/property';
 import { successResponse, errorResponse } from './response';
 
 
@@ -47,8 +49,8 @@ const getAllAds = (req, res) => {
   successResponse(res, result);
 };
 
-const getAdById = (req, res) => {
-  const propertyAd = property.fetchProperty(req.params.property_id);
+const getAdById = async (req, res) => {
+  const propertyAd = await fetchAd(req.params.property_id);
   if (!propertyAd) {
     return errorResponse(res);
   }
