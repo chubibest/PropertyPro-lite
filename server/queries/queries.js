@@ -32,7 +32,7 @@ export const changeStatusQuery = (status, Id) => ({
   values: [status, Id]
 });
 
-export const removeItemQuery = (Id, owner) => ({
+export const removeItemQuery = (owner, Id) => ({
   text: 'DELETE FROM property WHERE Id = $1 and owner = $2 returning * ',
   values: [Id, owner]
 });

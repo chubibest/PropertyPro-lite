@@ -1,5 +1,5 @@
 import property from '../models/Property';
-import { createAd, updateStatus } from '../modelController/property';
+import { createAd, updateStatus, deleteAd } from '../modelController/property';
 import { successResponse, errorResponse } from './response';
 
 
@@ -31,8 +31,8 @@ const changeStatus = async (req, res) => {
   successResponse(res, soldAd);
 };
 
-const deleteAd = (req, res) => {
-  const adStatus = property.deleteAd(req.body.id, req.params.property_id);
+const deletePropertyAd = async (req, res) => {
+  const adStatus = await deleteAd(req.body.owner, req.params.property_id);
   if (!adStatus) {
     return errorResponse(res);
   }
@@ -66,5 +66,5 @@ const getByType = (req, res, next) => {
   return successResponse(res, result);
 };
 export {
-  createAds, updateAd, changeStatus, deleteAd, getAllAds, getAdById, getByType
+  createAds, updateAd, changeStatus, deletePropertyAd, getAllAds, getAdById, getByType
 };
