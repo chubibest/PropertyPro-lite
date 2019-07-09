@@ -1,6 +1,6 @@
 import property from '../models/Property';
 import {
-  createAd, updateStatus, deleteAd, fetchAd, fetchAds
+  createAd, updateStatus, deleteAd, fetchAd, fetchAds, fetchBytype
 } from '../modelController/property';
 import { successResponse, errorResponse } from './response';
 
@@ -58,11 +58,11 @@ const getAllAds = async (req, res) => {
   successResponse(res, result);
 };
 
-const getByType = (req, res, next) => {
+const getByType = async (req, res, next) => {
   if (!req.query.type) {
     return next();
   }
-  const result = property.getAdBytype(req.query.type);
+  const result = await fetchBytype(req.query.type);
   if (!result.length) {
     return successResponse(res, `${req.query.type} unavailable at the moment`);
   }
