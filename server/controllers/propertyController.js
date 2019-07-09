@@ -1,6 +1,6 @@
 import property from '../models/Property';
 import {
-  createAd, updateStatus, deleteAd, fetchAd
+  createAd, updateStatus, deleteAd, fetchAd, fetchAds
 } from '../modelController/property';
 import { successResponse, errorResponse } from './response';
 
@@ -41,13 +41,6 @@ const deletePropertyAd = async (req, res) => {
   successResponse(res, adStatus, 204);
 };
 
-const getAllAds = (req, res) => {
-  const result = property.getAllAds();
-  if (!result.length) {
-    return successResponse(res, 'No ads at this time');
-  }
-  successResponse(res, result);
-};
 
 const getAdById = async (req, res) => {
   const propertyAd = await fetchAd(req.params.property_id);
@@ -55,6 +48,14 @@ const getAdById = async (req, res) => {
     return errorResponse(res);
   }
   successResponse(res, propertyAd);
+};
+
+const getAllAds = async (req, res) => {
+  const result = await fetchAds();
+  if (!result.length) {
+    return successResponse(res, 'No ads at this time');
+  }
+  successResponse(res, result);
 };
 
 const getByType = (req, res, next) => {
@@ -67,6 +68,7 @@ const getByType = (req, res, next) => {
   }
   return successResponse(res, result);
 };
+
 export {
   createAds, updateAd, changeStatus, deletePropertyAd, getAllAds, getAdById, getByType
 };
