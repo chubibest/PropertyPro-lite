@@ -23,9 +23,13 @@ export const createAdQuery = ({
   values: [id, owner, price, city, state, address, type, image_url]
 });
 
-export const markAsSold = (Id, owner) => ({
-  text: "UPDATE property SET status = 'Sold' WHERE id = $1 and  owner = $2 RETURNING *",
-  values: [Id, owner]
+export const getStatus = (owner, id) => ({
+  text: 'SELECT status FROM property  WHERE id = $1 and  owner = $2',
+  values: [id, owner]
+});
+export const changeStatusQuery = (status, Id) => ({
+  text: 'UPDATE property SET status = $1 WHERE id = $2  RETURNING *',
+  values: [status, Id]
 });
 
 export const removeItemQuery = (Id, owner) => ({

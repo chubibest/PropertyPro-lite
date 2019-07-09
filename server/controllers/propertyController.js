@@ -1,5 +1,5 @@
 import property from '../models/Property';
-import { createAd } from '../modelController/property';
+import { createAd, updateStatus } from '../modelController/property';
 import { successResponse, errorResponse } from './response';
 
 
@@ -12,6 +12,8 @@ const createAds = async (req, res) => {
   }
 };
 
+
+// fghjk
 const updateAd = (req, res) => {
   const updatedAd = property.updateAd(req.body, req.params.property_id);
   if (!updatedAd) {
@@ -19,9 +21,10 @@ const updateAd = (req, res) => {
   }
   successResponse(res, updatedAd);
 };
+// ghjkl
 
-const changeStatus = (req, res) => {
-  const soldAd = property.changeStatus(req.body.id, req.params.property_id);
+const changeStatus = async (req, res) => {
+  const soldAd = await updateStatus(req.body.owner, req.params.property_id);
   if (!soldAd) {
     return errorResponse(res);
   }
