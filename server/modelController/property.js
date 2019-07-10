@@ -3,7 +3,7 @@ import intformat from 'biguint-format';
 import {
   createAdQuery, changeStatusQuery, getStatus, removeItemQuery, getAd, getAllQuery, getAdsByType,
   updateAdQuery
-} from '../queries/queries';
+} from '../queries/propertyQueries';
 import query from '../configurations/dbconfig';
 
 

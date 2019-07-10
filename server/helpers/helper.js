@@ -5,9 +5,10 @@ const hashPassword = password => bcrypt.hash(password, 8);
 
 const matchPassword = (password, hashedPassword) => bcrypt.compareSync(password, hashedPassword);
 
-const generateToken = id => jwt.sign(
+const generateToken = ({ id, email }) => jwt.sign(
   {
-    id
+    id,
+    email
   },
   process.env.SECRET, { expiresIn: '7d' }
 );

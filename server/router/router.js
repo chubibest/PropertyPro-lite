@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import dotenv from 'dotenv';
-import { createUsers, login } from '../controllers/usersController';
-import { validateSignup, validateSignin } from '../validators/validateUser';
+import {
+  createUsers, login, changePass, resetpasscontroller
+} from '../controllers/usersController';
+import { validateSignup, validateSignin, validatePassChange } from '../validators/validateUser';
 import { validatePostAd, validateUpdateAd } from '../validators/validateProperty';
 import {
   createAds, updateAd, changeStatus, deletePropertyAd, getAllAds, getAdById, getByType
@@ -20,7 +22,7 @@ router.patch('/api/v1/property/:property_id/sold', auth, changeStatus);
 router.delete('/api/v1/property/:property_id', auth, deletePropertyAd);
 router.get('/api/v1/property', auth, getByType, getAllAds);
 router.get('/api/v1/property/:property_id', auth, getAdById);
-// POST /auth/<:user-email>/reset_password
-// Reset user’s password.
+router.post('/auth/:user_email/reset_password', resetpasscontroller, validatePassChange, auth, changePass);
+
 
 export default router;
