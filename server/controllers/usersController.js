@@ -1,7 +1,10 @@
-import { fetchUser, createUser } from '../modelController/user';
+import {
+  fetchUser, createUser, fetchUserByEmail, changePassword
+} from '../modelController/user';
 import { hashPassword, matchPassword, generateToken } from '../helpers/helper';
 import { successResponse, errorResponse } from './response';
-
+import resetPass from '../passwordGen/passwordGen';
+import sendNewPass from '../sendgrid/resetpassmail';
 
 export const createUsers = async (req, res) => {
   const { body: { username, password } } = req;
@@ -12,7 +15,7 @@ export const createUsers = async (req, res) => {
     }
     req.body.password = await hashPassword(password);
     const user = await createUser(req.body);
-    user.token = generateToken(user.id);
+    user.token = generateToken(user);
     successResponse(res, user, 201);
   } catch (e) {
     if (e.constraint === 'users_email_key') {
@@ -38,5 +41,39 @@ export const login = async (req, res) => {
     return successResponse(res, user);
   } catch (e) {
     return errorResponse(res, 'something went wrong', 500);
+  }
+};
+
+export const changePass = async ({ body }, res) => {
+  const { oldpass, newpass } = body;
+  const { email } = res.locals;
+  try {
+    const { password } = await fetchUserByEmail(email);
+    const match = matchPassword(oldpass, password);
+    if (match) {
+      const newPass = await hashPassword(newpass);
+      await changePassword(newPass, email);
+      return res.status(204).send();
+    }
+    return errorResponse(res, 'Forbidden', 403);
+  } catch (e) {
+    errorResponse(res, 'Something went wrong', 500);
+  }
+};
+
+export const resetpasscontroller = async ({ body, params }, res, next) => {
+  const { user_email: email } = params;
+  res.locals.email = email;
+  if (body.oldpass) {
+    return next();
+  }
+  try {
+    const password = resetPass();
+    const hash = await hashPassword(password);
+    await changePassword(hash, email);
+    await sendNewPass(email, password);
+    res.status(204).send();
+  } catch (e) {
+    errorResponse(res, 'Something went went wrong', 500);
   }
 };

@@ -19,6 +19,11 @@ const signInSchema = {
   password: Joi.string().regex(/.{3,30}/).required()
 };
 
+const passChangeSchema = {
+  oldpass: Joi.string().regex(/.{3,30}/).required(),
+  newpass: Joi.string().regex(/.{3,30}/).required(),
+};
+export const validatePassChange = validate(passChangeSchema);
 export const validateSignup = validate(signUpSchema);
 
 export const validateSignin = validate(signInSchema);

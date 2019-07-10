@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 import FlakeId from 'flake-idgen';
 import intformat from 'biguint-format';
-import { getUserQuery, createUserQuery } from '../queries/queries';
+import {
+  getUserQuery, createUserQuery, getByEmail, changePassQuery
+} from '../queries/userQueries';
 import query from '../configurations/dbconfig';
-
 
 const genId = new FlakeId();
 
@@ -26,4 +27,14 @@ export const createUser = async (body) => {
     } = user;
     return rest;
   }
+};
+
+export const fetchUserByEmail = async (email) => {
+  const [user] = await query(getByEmail(email));
+  return user;
+};
+
+export const changePassword = async (newpass, email) => {
+  const [user] = await query(changePassQuery(newpass, email));
+  return user;
 };
