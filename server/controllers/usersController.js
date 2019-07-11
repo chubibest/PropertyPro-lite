@@ -16,6 +16,8 @@ const genId = new FlakeId();
 const getResBody = ({
   username, password, phonenumber, address, is_admin, ...rest
 }) => rest;
+
+
 export const createUsers = async (req, res) => {
   const { body: { username: userName, password: pass } } = req;
   try {
@@ -33,7 +35,7 @@ export const createUsers = async (req, res) => {
     if (e.constraint === 'users_email_key') {
       return errorResponse(res, 'email already exists', 500);
     }
-    return errorResponse(res, 'something went wrong', 500);
+    return errorResponse(res, e, 500);
   }
 };
 

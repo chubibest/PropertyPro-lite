@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
+import insertQuery from './commonInsert';
+
 export const createAdQuery = ({
   id, owner, price, city, state, address, type, image_url
-}) => ({
-  text: `INSERT INTO property
-  (id, owner, price, city, state, address, type, image_url)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-  values: [id, owner, price, city, state, address, type, image_url]
-});
+}) => {
+  const values = [id, owner, price, city, state, address, type, image_url];
+  const fields = 'id, owner, price, city, state, address, type, image_url';
+  return insertQuery('property', fields, values);
+};
 
 export const updateAdQuery = ({
   price, city, state, address, type, image_url
