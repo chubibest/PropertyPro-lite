@@ -1,13 +1,3 @@
-import insertQuery from './commonInsert';
-
-export const createUserQuery = ({
-  id, email, firstname, lastname, username, password, phonenumber, address
-}) => {
-  const fields = 'id, email, first_name, last_name, username, password, phonenumber, address';
-  const values = [id, email, firstname, lastname, username, password, phonenumber, address];
-  return insertQuery('users', fields, values);
-};
-
 export const getUserQuery = username => ({
   text: 'SELECT * FROM users WHERE username = $1',
   values: [username]

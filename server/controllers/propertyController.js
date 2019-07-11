@@ -2,9 +2,10 @@
 import FlakeId from 'flake-idgen';
 import intformat from 'biguint-format';
 import {
-  createAdQuery, changeStatusQuery, getStatus, removeItemQuery, getAd, getAllQuery, getAdsByType,
+  changeStatusQuery, getStatus, removeItemQuery, getAd, getAllQuery, getAdsByType,
   updateAdQuery, flagQuery
 } from '../queries/propertyQueries';
+import insertQuery from '../queries/commonInsert';
 import query from '../configurations/dbconfig';
 import { successResponse, errorResponse } from './response';
 
@@ -14,7 +15,7 @@ const genId = new FlakeId();
 const createAds = async ({ body }, res) => {
   try {
     body.id = intformat(genId.next(), 'dec');
-    const [propertyAd] = await query(createAdQuery(body));
+    const [propertyAd] = await query(insertQuery('property', body));
     successResponse(res, propertyAd);
   } catch (e) {
     errorResponse(res, e, 500);

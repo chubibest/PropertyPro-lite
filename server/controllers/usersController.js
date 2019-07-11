@@ -6,9 +6,9 @@ import { successResponse, errorResponse } from './response';
 import resetPass from '../passwordGen/passwordGen';
 import sendNewPass from '../sendgrid/resetpassmail';
 import {
-  getUserQuery, createUserQuery, getByEmail, changePassQuery
+  getUserQuery, getByEmail, changePassQuery
 } from '../queries/userQueries';
-
+import insertQuery from '../queries/commonInsert';
 import query from '../configurations/dbconfig';
 
 const genId = new FlakeId();
@@ -27,7 +27,7 @@ export const createUsers = async (req, res) => {
     }
     req.body.password = await hashPassword(pass);
     req.body.id = intformat(genId.next(), 'dec');
-    const [user] = await query(createUserQuery(req.body));
+    const [user] = await query(insertQuery('users', req.body));
     user.token = await generateToken(user);
     const resBody = getResBody(user);
     successResponse(res, resBody, 201);
