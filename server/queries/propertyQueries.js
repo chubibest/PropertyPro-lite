@@ -44,3 +44,11 @@ export const getAdsByType = type => ({
 export const getAllQuery = () => ({
   text: 'SELECT * FROM property'
 });
+
+export const flagQuery = ({
+  id, property_id, reason, description
+}) => ({
+  text: `INSERT INTO flags (id, property_id, reason, description)
+  values ($1, $2, $3, $4)`,
+  values: [id, property_id, reason, description]
+});

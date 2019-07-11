@@ -68,7 +68,7 @@ const createFlagsTable = async () => {
     property_id BIGINT NOT NULL,
     created_on TIMESTAMP NOT NULL DEFAULT now(),
     reason VARCHAR(128) NOT NULL,
-    description VARCHAR(128),
+    description VARCHAR(128) NOT NULL,
     FOREIGN KEY (property_id) REFERENCES property (id) ON DELETE CASCADE
   )`;
   await query(queryText);

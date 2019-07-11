@@ -11,6 +11,7 @@ export default async (req, res, next) => {
   }
   try {
     const { id } = await verifyToken(token);
+
     req.body.owner = id;
     next();
   } catch (error) {
