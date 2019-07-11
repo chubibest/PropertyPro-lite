@@ -7,4 +7,3 @@ before_script:
   - psql -c 'create database pplite;' -U postgres
 after_success:
 - nyc report --reporter=text-lcov | coveralls
-  
