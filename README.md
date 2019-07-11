@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/prieste/PropertyPro-lite.svg?branch=master)](https://travis-ci.com/prieste/PropertyPro-lite)
 [![Coverage Status](https://coveralls.io/repos/github/prieste/PropertyPro-lite/badge.svg)](https://coveralls.io/github/prieste/PropertyPro-lite)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3c89d7225a973f345f52/maintainability)](https://codeclimate.com/github/prieste/PropertyPro-lite/maintainability)
-### A platform where you can create and/or search for properties for sale or rent
+### A platform where you can create and/or search for properties for sale.
 
     
 ### Implemented Features
@@ -20,7 +20,7 @@
 
 ### Project Management
 Project is managed here using the project management tool, 
-[Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2354202)
+[Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2354202).
 
 ### Technologies Used
 Node.js - A runtime environment based off of Chrome's V8 Engine for writing Javascript code on the server.
@@ -33,7 +33,7 @@ Airbnb style guide was followed.
 Mocha - A Javascript test framework.
 Chai - Assertion library.
 nyc - Istanbul's command line interface.
-[API Infomormation](https://ppl-best.herokuapp.com/docs/)
+[API Infomormation](https://ppl-best.herokuapp.com/docs/).
 
 ### How to install and checkout the app locally
 Installation
@@ -44,12 +44,12 @@ Run npm start to start the server.
 Navigate to localhost:3000 in your browser to access the application.
 
 ### Testing the application
-Requirements
+#### Requirements
 Postman - API development and testing environment.
 
 #### Testing with Postman
 Install Postman by following the link above.
-Navigate to localhost:3000 in Postman to access the application(Check api information above for routes)
+Navigate to localhost:3000 in Postman to access the application(Check api information above for routes).
 
 #### Running unit tests.
 In an open terminal, navigate to the cloned project directory.
