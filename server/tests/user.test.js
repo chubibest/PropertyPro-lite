@@ -14,6 +14,15 @@ const user = {
   email: 'johngotti@gmail.com'
 };
 
+const sameEmail = {
+  username: 'john',
+  address: 'newyork city',
+  phonenumber: 6789,
+  password: 'jkjlks',
+  lastname: 'gotti',
+  firstname: 'john',
+  email: 'johngotti@gmail.com'
+};
 describe('Create user route', () => {
   it('should create a user given correct input', async () => {
     const { status, text } = await chai.request(app)
@@ -28,6 +37,13 @@ describe('Create user route', () => {
       .send(user);
     expect(status).to.eql(409);
     expect(JSON.parse(text).error).to.eql('username johngotti alerady exists');
+  });
+  it('Should return error message with conflicting emails', async () => {
+    const { status, text } = await chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(sameEmail);
+    expect(status).to.eql(500);
+    expect(JSON.parse(text).error).to.eql('email already exists');
   });
   it('should return an error for bad input', async () => {
     const { status, text } = await chai.request(app)
@@ -74,5 +90,38 @@ describe('Login user route', () => {
       });
     expect(status).to.eql(400);
     expect(JSON.parse(text).error).to.eql('"password" is required');
+  });
+});
+
+describe('Change Password Route', () => {
+  let jwtToken;
+  before(async () => {
+    const { text } = await chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        username: 'johngotti',
+        password: 'jkjlks'
+      });
+    jwtToken = JSON.parse(text).data.token;
+  });
+  it('Should send password to email when request body is missing', async () => {
+    const { status } = await chai.request(app)
+      .post('/auth/chubi.best@gmail.com/reset_password')
+      .send();
+    expect(status).to.eql(204);
+  });
+  it('Should reset password when details are provided', async () => {
+    const { status } = await chai.request(app)
+      .post('/auth/johngotti@gmail.com/reset_password')
+      .set('authorization', jwtToken)
+      .send({ oldpass: 'jkjlks', newpass: 'fireboy' });
+    expect(status).to.eql(204);
+  });
+  it('Should return an error for wrong credentials', async () => {
+    const { status } = await chai.request(app)
+      .post('/auth/johngotti@gmail.com/reset_password')
+      .set('authorization', jwtToken)
+      .send({ oldpass: 'jkjlks', newpass: 'fireboy' });
+    expect(status).to.eql(403);
   });
 });

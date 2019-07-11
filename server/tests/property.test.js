@@ -38,7 +38,7 @@ describe('Property routes', () => {
       .post('/api/v1/auth/signin')
       .send({
         username: 'johngotti',
-        password: 'jkjlks'
+        password: 'fireboy'
       });
     jwtToken = JSON.parse(text).data.token;
   });
@@ -133,6 +133,14 @@ describe('Property routes', () => {
       expect(status).to.eql(200);
       expect(JSON.parse(text).data.status).to.eql('Sold');
     });
+    it('should change ad status again', async () => {
+      const { status, text } = await chai.request(app)
+        .patch(`/api/v1/property/${propid}/sold`)
+        .set('authorization', jwtToken)
+        .send();
+      expect(status).to.eql(200);
+      expect(JSON.parse(text).data.status).to.eql('Available');
+    });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)
         .patch('/api/v1/property/1234/sold')
@@ -181,6 +189,18 @@ describe('Property routes', () => {
     });
   });
 
+  describe('Flag Ad', () => {
+    it('Should flag ad as fraudulent', async () => {
+      const { status, text } = await chai.request(app)
+        .post(`/api/v1/property/${propid}`)
+        .set('authorization', jwtToken)
+        .send({
+          reason: 'it is not his own',
+          description: 'it is not his own'
+        });
+      expect(status).to.eql(204);
+    });
+  });
   describe('Delete ad', () => {
     it('should delete an ad', async () => {
       const { status } = await chai.request(app)
