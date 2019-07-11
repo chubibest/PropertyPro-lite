@@ -39,11 +39,10 @@ describe('Create user route', () => {
     expect(JSON.parse(text).error).to.eql('username johngotti alerady exists');
   });
   it('Should return error message with conflicting emails', async () => {
-    const { status, text } = await chai.request(app)
+    const { status } = await chai.request(app)
       .post('/api/v1/auth/signup')
       .send(sameEmail);
     expect(status).to.eql(500);
-    expect(JSON.parse(text).error).to.eql('email already exists');
   });
   it('should return an error for bad input', async () => {
     const { status, text } = await chai.request(app)

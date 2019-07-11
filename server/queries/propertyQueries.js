@@ -1,13 +1,4 @@
 /* eslint-disable camelcase */
-import insertQuery from './commonInsert';
-
-export const createAdQuery = ({
-  id, owner, price, city, state, address, type, image_url
-}) => {
-  const values = [id, owner, price, city, state, address, type, image_url];
-  const fields = 'id, owner, price, city, state, address, type, image_url';
-  return insertQuery('property', fields, values);
-};
 
 export const updateAdQuery = ({
   price, city, state, address, type, image_url
