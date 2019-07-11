@@ -4,9 +4,9 @@ import {
   createUsers, login, changePass, resetpasscontroller
 } from '../controllers/usersController';
 import { validateSignup, validateSignin, validatePassChange } from '../validators/validateUser';
-import { validatePostAd, validateUpdateAd } from '../validators/validateProperty';
+import { validatePostAd, validateUpdateAd, validateFlag } from '../validators/validateProperty';
 import {
-  createAds, updateAd, changeStatus, deletePropertyAd, getAllAds, getAdById, getByType
+  createAds, updateAd, changeStatus, deletePropertyAd, getAllAds, getAdById, getByType, flag
 } from '../controllers/propertyController';
 import auth from '../middleware/authmiddleware';
 
@@ -23,6 +23,6 @@ router.delete('/api/v1/property/:property_id', auth, deletePropertyAd);
 router.get('/api/v1/property', auth, getByType, getAllAds);
 router.get('/api/v1/property/:property_id', auth, getAdById);
 router.post('/auth/:user_email/reset_password', resetpasscontroller, validatePassChange, auth, changePass);
-
+router.post('/api/v1/property/:property_id', validateFlag, auth, flag);
 
 export default router;

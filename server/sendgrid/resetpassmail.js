@@ -9,7 +9,6 @@ sgMail.setApiKey(key);
 
 
 export default (email, password) => {
-  console.log(email, password);
   const msg = {
     to: email,
     from: 'gokayirayol@gmail.com',

@@ -1,22 +1,34 @@
-import {
-  fetchUser, createUser, fetchUserByEmail, changePassword
-} from '../modelController/user';
+/* eslint-disable camelcase */
+import intformat from 'biguint-format';
+import FlakeId from 'flake-idgen';
 import { hashPassword, matchPassword, generateToken } from '../helpers/helper';
 import { successResponse, errorResponse } from './response';
 import resetPass from '../passwordGen/passwordGen';
 import sendNewPass from '../sendgrid/resetpassmail';
+import {
+  getUserQuery, createUserQuery, getByEmail, changePassQuery
+} from '../queries/userQueries';
 
+import query from '../configurations/dbconfig';
+
+const genId = new FlakeId();
+
+const getResBody = ({
+  username, password, phonenumber, address, is_admin, ...rest
+}) => rest;
 export const createUsers = async (req, res) => {
-  const { body: { username, password } } = req;
+  const { body: { username: userName, password: pass } } = req;
   try {
-    const existingUser = await fetchUser(username);
+    const [existingUser] = await query(getUserQuery(userName));
     if (existingUser) {
-      return errorResponse(res, `username ${username} alerady exists`, 409);
+      return errorResponse(res, `username ${userName} alerady exists`, 409);
     }
-    req.body.password = await hashPassword(password);
-    const user = await createUser(req.body);
-    user.token = generateToken(user);
-    successResponse(res, user, 201);
+    req.body.password = await hashPassword(pass);
+    req.body.id = intformat(genId.next(), 'dec');
+    const [user] = await query(createUserQuery(req.body));
+    user.token = await generateToken(user);
+    const resBody = getResBody(user);
+    successResponse(res, resBody, 201);
   } catch (e) {
     if (e.constraint === 'users_email_key') {
       return errorResponse(res, 'email already exists', 500);
@@ -26,19 +38,23 @@ export const createUsers = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { body: { password, username } } = req;
+  const { body: { password, username: userName } } = req;
   try {
-    const user = await fetchUser(username);
+    const [user] = await query(getUserQuery(userName));
     if (!user) {
-      return errorResponse(res, `${username} does not exist`);
+      return errorResponse(res, `${userName} does not exist`);
     }
-    const match = matchPassword(password, user.password);
+
+    const {
+      password: savedPass
+    } = user;
+    const match = matchPassword(password, savedPass);
     if (!match) {
       return errorResponse(res, 'Incorrect Password', 401);
     }
-    delete user.password;
-    user.token = generateToken(user.id);
-    return successResponse(res, user);
+    user.token = await generateToken(user);
+    const resBody = getResBody(user);
+    return successResponse(res, resBody);
   } catch (e) {
     return errorResponse(res, 'something went wrong', 500);
   }
@@ -48,16 +64,17 @@ export const changePass = async ({ body }, res) => {
   const { oldpass, newpass } = body;
   const { email } = res.locals;
   try {
-    const { password } = await fetchUserByEmail(email);
+    const [user] = await query(getByEmail(email));
+    const { password } = user;
     const match = matchPassword(oldpass, password);
     if (match) {
       const newPass = await hashPassword(newpass);
-      await changePassword(newPass, email);
-      return res.status(204).send();
+      await query(changePassQuery(newPass, email));
+      return res.status(204).send({ status: 204 });
     }
     return errorResponse(res, 'Forbidden', 403);
   } catch (e) {
-    errorResponse(res, 'Something went wrong', 500);
+    errorResponse(res, e, 500);
   }
 };
 
@@ -70,10 +87,10 @@ export const resetpasscontroller = async ({ body, params }, res, next) => {
   try {
     const password = resetPass();
     const hash = await hashPassword(password);
-    await changePassword(hash, email);
+    await query(changePassQuery(hash, email));
     await sendNewPass(email, password);
-    res.status(204).send();
+    res.status(204).send({ status: 204 });
   } catch (e) {
-    errorResponse(res, 'Something went went wrong', 500);
+    errorResponse(res, e, 500);
   }
 };
