@@ -8,7 +8,6 @@
     "start-dev": "nodemon -x 'babel-node server/index.js'",
     "test-dev": "nodemon -x 'npm test'",
     "coverage": "npm report | coveralls",
-    "yaml-lint": "yamllint .travis.yml",
     "drop-tables": "babel-node server/models/tables.js dropTables",
     "create-tables": "babel-node server/models/tables.js createTables",
     "refresh": "npm run drop-tables && npm run create-tables",
