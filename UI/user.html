@@ -6,10 +6,8 @@
   <title>PropertyPro-lite</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/user.css">
-  <link rel="stylesheet" href="css/details_view.css">
 </head>
 
 <body>
@@ -29,7 +27,7 @@
         <a href="signin.html">My Ads</a>
       </li>
       <li class="nav_link_items display">
-        <a href="index.html">Log Out</a>
+        <a href="account.html">Account</a>
       </li>
     </ul>
   </header>
@@ -43,6 +41,8 @@
          <input type="search" placeholder="search property type" id="search_bar">
          <button id='search_button'>search</button>
     </div>
+    <div id="display_property">
+    </div>
     <div id="see_all">
         <button id="click_me">
         Click me!
@@ -51,18 +51,9 @@
            Click to see all available Real Estate
          </p>
     </div>
-    <div id="display_property">
-      <div> 
-        <img id="image_display">
-      </div>
-        <ul id="data_display">
- 
-        </ul>
-    </div>
-    <div id="map">
-    </div>
-  </main>
+   </main>
   <script src="js/menu.js"></script>
+  <script type="module" src="js/user.js"></script>
 </body>
 
 </html>

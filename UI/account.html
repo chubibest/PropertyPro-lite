@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropertyPro-lite</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+  <header>
+      <div id="logo">
+          <a href="index.html">
+          PropertyPro-lite
+        </a>
+        </div>
+   
+    <ul id="nav_links">
+    </ul>
+  </header>
+  <div id="motto">
+    <h4>
+      Real Estate Management Made Easy...
+    </h4>
+  </div>
+  <main>
+    <form>
+      <div id="form-header">
+        Change password
+      </div>
+      <ul>
+        <li>
+            <label for="oldpass">Old Password</label>
+            <input type="password" id="oldpass" required pattern=".{5,20}"
+            title="john123" name="oldpass" onfocus="clearPassword()">
+            <span class="tooltips" id="passwordtt"></span>
+            <script>
+                const clearPassword = () => {
+                  document.querySelector('#passwordtt').textContent = ''
+                }
+              </script>
+        </li>
+        <li>
+          <label for="password">New Password</label>
+          <input type="password" id="password" name="newpass" required pattern=".{5,20}"
+          title="john123">
+      </li>
+      <li>
+          <label for="confirmpassword">Confirm Password</label>
+          <input type="password" id="confirmpassword" oninput="confirmPassword(this)" onchange="confirmPassword(this)">
+        <script>
+    function confirmPassword(input){
+      if (input.value != document.getElementById('password').value) {
+            input.setCustomValidity('Passwords don\'t match, please crosscheck.');
+ 
+} else {
+            input.setCustomValidity('');
+          }
+}
+        </script>
+      </li>
+      <a href="email.html"> Can't remember your password</a>
+      </ul>
+      <button id="change_pass">
+        Change password
+      </button>
+    </form>
+    
+  </main>
+  <script type="module" src="js/account.js"></script>
+</body>
+</html>

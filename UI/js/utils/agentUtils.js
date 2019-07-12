@@ -1,22 +1,31 @@
 const buttonsDiv = document.querySelector('#populateButtons');
-const handleUpdate = () => {
-  window.location.href = 'createad.html';
-};
 
-const handleDelete = () => {
-  window.location.href = 'user.html';
-};
-const handleMark = (e) => {
-  const listItem = document.querySelector('#listItem');
-  const state = listItem.classList.toggle('sold');
-
-  if (state) {
-    e.target.innerText = 'Unmark';
-    listItem.style.display = 'block';
-    return;
+const handleDelete = async ({ id }) => {
+  const token = localStorage.getItem('token');
+  const fetchOptions = {
+    method: 'DELETE',
+    headers: {
+      authorization: token
+    }
+  };
+  const response = await fetch(`/api/v1/property/${id}`, fetchOptions);
+  if (response.status === 204) {
+    window.location.href = 'user.html';
   }
-  e.target.innerText = 'Mark as sold';
-  listItem.style.display = 'none';
+};
+const handleMark = async ({ id }, e) => {
+  const token = localStorage.getItem('token');
+  const fetchOptions = {
+    method: 'PATCH',
+    headers: {
+      authorization: token
+    }
+  };
+  const response = await fetch(`/api/v1/property/${id}/sold`, fetchOptions);
+  const { data: { status } } = await response.json();
+  const displayLi = document.getElementById('5');
+  displayLi.innerText = status;
+  e.target.innerText = status === 'Sold' ? 'Unmark' : 'Mark as sold';
 };
 
 // this function adds buttons unique to the agent
@@ -29,5 +38,5 @@ const generateAgentButtons = (text) => {
 };
 
 export {
-  handleDelete, handleMark, handleUpdate, generateAgentButtons
+  handleDelete, handleMark, generateAgentButtons
 };

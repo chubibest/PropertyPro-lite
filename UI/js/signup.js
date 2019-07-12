@@ -14,9 +14,14 @@ form.addEventListener('submit', async (e) => {
   };
   const response = await fetch('/api/v1/auth/signup', fetchOptions);
   const result = await response.json();
-
-  if (result.statusCode === 409) {
+  if (result.error === 'username already exists') {
+    console.log('USER ERROR');
     document.querySelector('input[name=username]+ small').textContent = 'user already exists';
+    return;
+  }
+  if (result.error === 'email already exists') {
+    console.log('EMAIL ERROR');
+    document.querySelector('input[name=email]+ small').textContent = 'email already exists';
     return;
   }
   localStorage.setItem('token', result.data.token);
