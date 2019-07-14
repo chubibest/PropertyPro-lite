@@ -93,6 +93,11 @@ const createTables = async () => {
   await createUsersTable();
   await createPropertyTable();
   await createFlagsTable();
+  const adminUser = `Insert into users (id, email, first_name, last_name,
+      username, password, phoneNumber, address, is_admin)
+       values(1, 'admin@example.com', 'admin', 'admin',
+       'admin', 'admin', 12345678901, 'no 2 idumota lagos', true)`;
+  query(adminUser);
 };
 
 const dropTables = async () => {

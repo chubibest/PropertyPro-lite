@@ -1,3 +1,6 @@
+main{
+  position: relative;
+}
 form {
   margin: 2em auto;
   min-width:300px;
@@ -43,7 +46,7 @@ form ul li label::after{
 #for_album::after{
   content:'';
 }
-form ul li input{
+form ul li input, textarea{
 width:70%;
 text-align:left;
 border: 2px solid #fff;
@@ -62,6 +65,14 @@ button {
   padding:0;
 }
 
+.flag_response{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color:white;
+  font-size:2em;
+}
 @media(max-width:1000px){
   form ul li {
     grid-template-columns: 1fr;

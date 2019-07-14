@@ -66,6 +66,10 @@ color:green;
   margin-right:10px;
   margin-left:10px;
 }
+
+#update_Form {
+  display: none;
+}
 @media(max-width:800px){
   #display_property{
     grid-template-columns:1fr;

@@ -4,7 +4,7 @@ import upload from './cloudinary.js';
 import display from './detailsview.js';
 
 const submitButton = document.querySelector('#submit');
-const form = document.querySelector('form');
+const form = document.querySelector('#create_ad_form');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -31,7 +31,8 @@ form.addEventListener('submit', async (e) => {
     if (result.status === 'error') {
       throw result.status;
     }
-    display(form, imageUrl);
+    localStorage.setItem('caller', 'post');
+    display(result.data);
   } catch (err) {
     window.location.href = 'signin.html';
   }

@@ -36,13 +36,13 @@ describe('Create user route', () => {
       .post('/api/v1/auth/signup')
       .send(user);
     expect(status).to.eql(409);
-    expect(JSON.parse(text).error).to.eql('username johngotti alerady exists');
+    expect(JSON.parse(text).error).to.eql('username already exists');
   });
   it('Should return error message with conflicting emails', async () => {
     const { status } = await chai.request(app)
       .post('/api/v1/auth/signup')
       .send(sameEmail);
-    expect(status).to.eql(500);
+    expect(status).to.eql(409);
   });
   it('should return an error for bad input', async () => {
     const { status, text } = await chai.request(app)
@@ -72,7 +72,7 @@ describe('Login user route', () => {
         password: 'jkjlks'
       });
     expect(status).to.eql(404);
-    expect(JSON.parse(text).error).to.eql('emeka does not exist');
+    expect(JSON.parse(text).error).to.eql('user does not exist');
   });
   it('Should for incorrect password', async () => {
     const { status, text } = await chai.request(app)

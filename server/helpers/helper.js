@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+
 const hashPassword = password => bcrypt.hash(password, 8);
 
 const matchPassword = (password, hashedPassword) => bcrypt.compareSync(password, hashedPassword);

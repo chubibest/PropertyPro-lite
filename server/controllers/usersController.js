@@ -23,7 +23,7 @@ export const createUsers = async (req, res) => {
   try {
     const [existingUser] = await query(getUserQuery(userName));
     if (existingUser) {
-      return errorResponse(res, `username ${userName} alerady exists`, 409);
+      return errorResponse(res, 'username already exists', 409);
     }
     req.body.password = await hashPassword(pass);
     req.body.id = intformat(genId.next(), 'dec');
@@ -33,7 +33,7 @@ export const createUsers = async (req, res) => {
     successResponse(res, resBody, 201);
   } catch (e) {
     if (e.constraint === 'users_email_key') {
-      return errorResponse(res, 'email already exists', 500);
+      return errorResponse(res, 'email already exists', 409);
     }
     return errorResponse(res, e, 500);
   }
@@ -44,7 +44,7 @@ export const login = async (req, res) => {
   try {
     const [user] = await query(getUserQuery(userName));
     if (!user) {
-      return errorResponse(res, `${userName} does not exist`);
+      return errorResponse(res, 'user does not exist');
     }
 
     const {
@@ -72,7 +72,7 @@ export const changePass = async ({ body }, res) => {
     if (match) {
       const newPass = await hashPassword(newpass);
       await query(changePassQuery(newPass, email));
-      return res.status(204).send({ status: 204 });
+      return res.status(204).send();
     }
     return errorResponse(res, 'Forbidden', 403);
   } catch (e) {
@@ -91,7 +91,7 @@ export const resetpasscontroller = async ({ body, params }, res, next) => {
     const hash = await hashPassword(password);
     await query(changePassQuery(hash, email));
     await sendNewPass(email, password);
-    res.status(204).send({ status: 204 });
+    res.status(204).send();
   } catch (e) {
     errorResponse(res, e, 500);
   }
