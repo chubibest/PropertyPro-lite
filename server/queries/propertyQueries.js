@@ -24,18 +24,22 @@ export const removeItemQuery = (owner, Id) => ({
 });
 
 export const getAd = id => ({
-  text: 'SELECT * FROM property WHERE id = $1',
+  text: `select property.*, users.email as owner_email,
+  users.phone_number as owner_phone_number from property inner join users on property.id = $1`,
   values: [id]
 });
 
 export const getAdsByType = type => ({
-  text: 'SELECT * FROM property WHERE type = $1',
+  text: `select property.*, users.email as owner_email,
+  users.phone_number as owner_phone_number from property inner join users on property.owner = users.id WHERE type = $1`,
   values: [type]
 });
 
 export const getAllQuery = () => ({
-  text: 'SELECT * FROM property'
+  text: `select property.*, users.email as owner_email,
+  users.phone_number as owner_phone_number from property inner join users on property.owner = users.id`
 });
+
 
 export const flagQuery = ({
   id, property_id, reason, description

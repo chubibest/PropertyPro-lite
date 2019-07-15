@@ -1,3 +1,6 @@
+/* eslint-disable import/extensions */
+import populateUl from './utils/populateUl.js';
+
 const displayDiv = document.querySelector('#display_property');
 export default ({
   owner, id, image_url: src, ...rest
@@ -7,12 +10,7 @@ export default ({
   image.src = src;
   const ul = document.createElement('ul');
   ul.classList.add('ad_details_ul');
-  Object.entries(rest).forEach(([key, value]) => {
-    const listItem = document.createElement('li');
-    const Key = key.replace(key.charAt(0), key.charAt(0).toUpperCase());
-    listItem.innerText = `${Key}: ${value}`;
-    ul.appendChild(listItem);
-  });
+  populateUl(rest, ul);
   const flagButton = document.createElement('button');
   flagButton.innerHTML = 'Flag Ad';
   flagButton.classList.add('view_ad_buttons');

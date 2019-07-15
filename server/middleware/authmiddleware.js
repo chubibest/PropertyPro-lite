@@ -1,18 +1,12 @@
 import { verifyToken } from '../helpers/helper';
 
 
-export default async (req, res, next) => {
-  const token = req.headers.authorization.replace('Bearer ', '');
-  if (!token) {
-    return res.status(403).send({
-      status: 'error',
-      error: 'Please provide a token'
-    });
-  }
+export default async ({ body, headers: { authorization } }, res, next) => {
   try {
+    const token = body.token || authorization.replace('Bearer ', '');
     const { id } = await verifyToken(token);
 
-    req.body.owner = id;
+    body.owner = id;
     next();
   } catch (error) {
     res.status(403).json({ status: 'error', error: 'Invalid token' });

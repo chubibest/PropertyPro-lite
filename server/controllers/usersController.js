@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import intformat from 'biguint-format';
 import FlakeId from 'flake-idgen';
 import { hashPassword, matchPassword, generateToken } from '../helpers/helper';
@@ -6,7 +5,7 @@ import { successResponse, errorResponse } from './response';
 import resetPass from '../passwordGen/passwordGen';
 import sendNewPass from '../sendgrid/resetpassmail';
 import {
-  getUserQuery, getByEmail, changePassQuery
+  getUserQuery, changePassQuery
 } from '../queries/userQueries';
 import insertQuery from '../queries/commonInsert';
 import query from '../configurations/dbconfig';
@@ -14,39 +13,37 @@ import query from '../configurations/dbconfig';
 const genId = new FlakeId();
 
 const getResBody = ({
-  username, password, phonenumber, address, is_admin, ...rest
-}) => rest;
+  password, phone_number: pn, address, is_admin: is, ...rest
+}) => (
+  rest
+);
 
 
-export const createUsers = async (req, res) => {
-  const { body: { username: userName, password: pass } } = req;
+export const createUsers = async ({ body }, res) => {
+  const { email, password } = body;
   try {
-    const [existingUser] = await query(getUserQuery(userName));
+    const [existingUser] = await query(getUserQuery(email));
     if (existingUser) {
-      return errorResponse(res, 'username already exists', 409);
+      return errorResponse(res, 'email already exists', 409);
     }
-    req.body.password = await hashPassword(pass);
-    req.body.id = intformat(genId.next(), 'dec');
-    const [user] = await query(insertQuery('users', req.body));
+    body.password = await hashPassword(password);
+    body.id = intformat(genId.next(), 'dec');
+    const [user] = await query(insertQuery('users', body));
     user.token = await generateToken(user);
     const resBody = getResBody(user);
     successResponse(res, resBody, 201);
   } catch (e) {
-    if (e.constraint === 'users_email_key') {
-      return errorResponse(res, 'email already exists', 409);
-    }
     return errorResponse(res, e, 500);
   }
 };
 
-export const login = async (req, res) => {
-  const { body: { password, username: userName } } = req;
+export const login = async ({ body }, res) => {
+  const { password, email } = body;
   try {
-    const [user] = await query(getUserQuery(userName));
+    const [user] = await query(getUserQuery(email));
     if (!user) {
       return errorResponse(res, 'user does not exist');
     }
-
     const {
       password: savedPass
     } = user;
@@ -66,7 +63,7 @@ export const changePass = async ({ body }, res) => {
   const { oldpass, newpass } = body;
   const { email } = res.locals;
   try {
-    const [user] = await query(getByEmail(email));
+    const [user] = await query(getUserQuery(email));
     const { password } = user;
     const match = matchPassword(oldpass, password);
     if (match) {

@@ -12,11 +12,13 @@ import { successResponse, errorResponse } from './response';
 
 const genId = new FlakeId();
 
+const myAd = ({ owner, ...rest }) => (rest);
+
 const createAds = async ({ body }, res) => {
   try {
     body.id = intformat(genId.next(), 'dec');
     const [propertyAd] = await query(insertQuery('property', body));
-    successResponse(res, propertyAd);
+    successResponse(res, myAd(propertyAd));
   } catch (e) {
     errorResponse(res, e, 500);
   }
@@ -28,7 +30,7 @@ const updateAd = async ({ body, params: { property_id } }, res) => {
     if (!updatedAd) {
       return errorResponse(res);
     }
-    successResponse(res, updatedAd);
+    successResponse(res, myAd(updatedAd));
   } catch (e) {
     errorResponse(res, e, 500);
   }
@@ -43,7 +45,7 @@ const changeStatus = async ({ body: { owner }, params: { property_id } }, res) =
     let { status } = soldAd;
     status = status === 'Sold' ? 'Available' : 'Sold';
     const [result] = await query(changeStatusQuery(status, property_id));
-    successResponse(res, result);
+    successResponse(res, myAd(result));
   } catch (e) {
     errorResponse(res, e, 500);
   }
@@ -55,7 +57,7 @@ const deletePropertyAd = async ({ body: { owner }, params: { property_id } }, re
     if (!adStatus) {
       return errorResponse(res);
     }
-    successResponse(res, adStatus, 204);
+    res.status(204).send();
   } catch (e) {
     errorResponse(res, e, 500);
   }
@@ -68,7 +70,7 @@ const getAdById = async ({ params: { property_id } }, res) => {
     if (!propertyAd) {
       return errorResponse(res);
     }
-    successResponse(res, propertyAd);
+    successResponse(res, myAd(propertyAd));
   } catch (e) {
     errorResponse(res, e, 500);
   }
@@ -80,7 +82,8 @@ const getAllAds = async (req, res) => {
     if (!result.length) {
       return successResponse(res, 'No ads at this time');
     }
-    successResponse(res, result);
+    const response = result.map(ad => myAd(ad));
+    successResponse(res, response);
   } catch (e) {
     errorResponse(res, e, 500);
   }
@@ -95,7 +98,8 @@ const getByType = async ({ query: { type } }, res, next) => {
     if (!result.length) {
       return successResponse(res, `${type} unavailable at the moment`);
     }
-    return successResponse(res, result);
+    const response = result.map(ad => myAd(ad));
+    return successResponse(res, response);
   } catch (e) {
     errorResponse(res, e, 500);
   }
