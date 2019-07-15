@@ -37,16 +37,16 @@
       </div>
       <ul>
         <li>
-            <label for="username">Username</label>
-            <input type="text" id="username" required pattern="[a-zA-Z]{2,15}[a-zA-Z0-9]{0,5}"
-            title="john123" required autofocus name='username' onfocus="clearUser()">
-            <span class="tooltips" id="usernamett"></span>
-            <script>
-              const clearUser = () => {
-                document.querySelector('#usernamett').textContent = ''
-              }
-            </script>
-        </li>
+        <label for="email">Email</label>   
+        <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9.]{3,30}@[a-zA-Z0-9]{3,30}\.[a-zA-Z0-9]{1,10}"
+        title="example@example.com" onfocus="clearEmail()">
+        <span class="tooltips" id="email_exists"></span>
+        <script>
+          const clearEmail = () => {
+            document.querySelector('#email_exists').textContent = '';
+          }
+          </script>
+      </li>
         <li>
             <label for="password">Password</label>
             <input type="password" id="password" required pattern=".{5,20}"

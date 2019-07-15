@@ -1,5 +1,6 @@
-// eslint-disable-next-line import/extensions
+/* eslint-disable import/extensions */
 import viewSingleAd from './usersDetailsView.js';
+import populateUl from './utils/populateUl.js';
 
 const getAllButton = document.querySelector('#click_me');
 const getByTypeButton = document.querySelector('#search_button');
@@ -34,12 +35,7 @@ const queryBackEnd = async (e, type) => {
 const displayUlItems = (adDetails, id) => {
   const ul = document.createElement('ul');
   ul.classList.add('ad_details_ul');
-  Object.entries(adDetails).forEach(([key, value]) => {
-    const li = document.createElement('li');
-    const Key = key.replace(key.charAt(0), key.charAt(0).toUpperCase());
-    li.innerText = `${Key}: ${value}`;
-    ul.appendChild(li);
-  });
+  populateUl(adDetails, ul);
   const viewAddButton = document.createElement('button');
   viewAddButton.classList.add('view_ad_buttons');
   viewAddButton.innerText = 'View Ad';
@@ -82,14 +78,13 @@ const display = (result) => {
   });
 };
 
-getByTypeButton.addEventListener('click', async (e) => {
-  e.preventDefault();
-  const result = await queryBackEnd(e, input.value);
-  display(result.data);
-});
-// add event listener
-getAllButton.addEventListener('click', async (e) => {
-  e.preventDefault();
-  const result = await queryBackEnd(e, input.value);
-  display(result.data);
-});
+const addClickListener = (button) => {
+  button.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const result = await queryBackEnd(e, input.value);
+    display(result.data);
+  });
+};
+
+addClickListener(getByTypeButton);
+addClickListener(getAllButton);

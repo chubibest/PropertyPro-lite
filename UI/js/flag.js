@@ -1,3 +1,6 @@
+/* eslint-disable import/extensions */
+import successHandler from './utils/response.js';
+
 const button = document.querySelector('#flag_button');
 const form = document.querySelector('#flag_form');
 
@@ -19,16 +22,6 @@ form.addEventListener('submit', async (e) => {
   };
   const response = await fetch(`/api/v1/property/${id}`, fetchOptions);
   if (response.status === 204) {
-    form.style.display = 'none';
-    const div = document.createElement('div');
-    div.innerText = 'We will look into it';
-    div.classList.add('flag_response');
-    const enterProfile = document.createElement('button');
-    enterProfile.innerText = 'Go back';
-    enterProfile.addEventListener('click', () => {
-      window.location.href = 'user.html';
-    });
-    div.appendChild(enterProfile);
-    document.querySelector('main').appendChild(div);
+    successHandler(form, 'user.html');
   }
 });

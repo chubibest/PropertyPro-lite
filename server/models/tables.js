@@ -1,3 +1,5 @@
+import { hashPassword } from '../helpers/helper';
+
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
 
@@ -34,9 +36,8 @@ const createUsersTable = async () => {
       email VARCHAR(128) UNIQUE,
       first_name VARCHAR(128) NOT NULL,
       last_name VARCHAR(128) NOT NULL,
-      username VARCHAR(128) UNIQUE NOT NULL,
       password VARCHAR(128) NOT NULL,
-      phoneNumber BIGINT NOT NULL,
+      phone_number BIGINT NOT NULL,
       address VARCHAR(128) NOT NULL,
       is_admin BOOLEAN DEFAULT false
     )`;
@@ -93,10 +94,14 @@ const createTables = async () => {
   await createUsersTable();
   await createPropertyTable();
   await createFlagsTable();
-  const adminUser = `Insert into users (id, email, first_name, last_name,
-      username, password, phoneNumber, address, is_admin)
-       values(1, 'admin@example.com', 'admin', 'admin',
-       'admin', 'admin', 12345678901, 'no 2 idumota lagos', true)`;
+  const password = await hashPassword('admin1');
+  const adminUser = {
+    text: `Insert into users (id, email, first_name, last_name,
+       password, phone_number, address, is_admin)
+       values($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [1, 'admin@admin.com', 'admin', 'admin',
+      password, 12345678901, 'no 2 idumota lagos', true]
+  };
   query(adminUser);
 };
 

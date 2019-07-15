@@ -7,12 +7,14 @@ const adSchema = Joi.object().keys({
   price: Joi.number().required(),
   city: Joi.string().trim().required(),
   state: Joi.string().trim().required(),
-  image_url: Joi.string().trim().required()
+  image_url: Joi.string().trim().required(),
+  token: Joi.string()
 });
 
 const flagSchema = {
   reason: Joi.string().required(),
-  description: Joi.string().required()
+  description: Joi.string().required(),
+  token: Joi.string()
 };
 
 export const validatePostAd = validate(adSchema);

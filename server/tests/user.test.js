@@ -5,22 +5,20 @@ import app from '../index';
 chai.use(chaiHttp);
 
 const user = {
-  username: 'johngotti',
   address: 'newyork city',
-  phonenumber: 6789,
+  phone_number: 6789,
   password: 'jkjlks',
-  lastname: 'gotti',
-  firstname: 'john',
+  last_name: 'gotti',
+  first_name: 'john',
   email: 'johngotti@gmail.com'
 };
 
 const sameEmail = {
-  username: 'john',
   address: 'newyork city',
-  phonenumber: 6789,
+  phone_number: 6789,
   password: 'jkjlks',
-  lastname: 'gotti',
-  firstname: 'john',
+  last_name: 'gotti',
+  first_name: 'john',
   email: 'johngotti@gmail.com'
 };
 describe('Create user route', () => {
@@ -30,13 +28,6 @@ describe('Create user route', () => {
       .send(user);
     expect(status).to.eql(201);
     expect(JSON.parse(text).data.last_name).to.eql('gotti');
-  });
-  it('Should return error message with conflicting user names', async () => {
-    const { status, text } = await chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(user);
-    expect(status).to.eql(409);
-    expect(JSON.parse(text).error).to.eql('username already exists');
   });
   it('Should return error message with conflicting emails', async () => {
     const { status } = await chai.request(app)
@@ -49,7 +40,7 @@ describe('Create user route', () => {
       .post('/api/v1/auth/signup')
       .send({ crohns: 'disease' });
     expect(status).to.eql(400);
-    expect(JSON.parse(text).error).to.eql('"username" is required');
+    expect(JSON.parse(text).error).to.eql('"password" is required');
   });
 });
 
@@ -58,7 +49,7 @@ describe('Login user route', () => {
     const { status, text } = await chai.request(app)
       .post('/api/v1/auth/signin')
       .send({
-        username: 'johngotti',
+        email: 'johngotti@gmail.com',
         password: 'jkjlks'
       });
     expect(status).to.eql(200);
@@ -68,7 +59,7 @@ describe('Login user route', () => {
     const { status, text } = await chai.request(app)
       .post('/api/v1/auth/signin')
       .send({
-        username: 'emeka',
+        email: 'emeka@g.com',
         password: 'jkjlks'
       });
     expect(status).to.eql(404);
@@ -77,7 +68,7 @@ describe('Login user route', () => {
   it('Should for incorrect password', async () => {
     const { status, text } = await chai.request(app)
       .post('/api/v1/auth/signin')
-      .send({ username: 'johngotti', password: 'hfjdkdfd' });
+      .send({ email: 'johngotti@gmail.com', password: 'hfjdkdfd' });
     expect(status).to.eql(401);
     expect(JSON.parse(text).error).to.eql('Incorrect Password');
   });
@@ -85,7 +76,7 @@ describe('Login user route', () => {
     const { status, text } = await chai.request(app)
       .post('/api/v1/auth/signin')
       .send({
-        username: 'johngotti',
+        email: 'johngotti@gmail.com',
       });
     expect(status).to.eql(400);
     expect(JSON.parse(text).error).to.eql('"password" is required');
@@ -98,7 +89,7 @@ describe('Change Password Route', () => {
     const { text } = await chai.request(app)
       .post('/api/v1/auth/signin')
       .send({
-        username: 'johngotti',
+        email: 'johngotti@gmail.com',
         password: 'jkjlks'
       });
     jwtToken = JSON.parse(text).data.token;
