@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import FlakeId from 'flake-idgen';
 import intformat from 'biguint-format';
 import {
@@ -24,9 +23,9 @@ const createAds = async ({ body }, res) => {
   }
 };
 
-const updateAd = async ({ body, params: { property_id } }, res) => {
+const updateAd = async ({ body, params: { property_id: propId } }, res) => {
   try {
-    const [updatedAd] = await query(updateAdQuery(body, body.owner, property_id));
+    const [updatedAd] = await query(updateAdQuery(body, body.owner, propId));
     if (!updatedAd) {
       return errorResponse(res);
     }
@@ -36,24 +35,24 @@ const updateAd = async ({ body, params: { property_id } }, res) => {
   }
 };
 
-const changeStatus = async ({ body: { owner }, params: { property_id } }, res) => {
+const changeStatus = async ({ body: { owner }, params: { property_id: propId } }, res) => {
   try {
-    const [soldAd] = await query(getStatus(owner, property_id));
+    const [soldAd] = await query(getStatus(owner, propId));
     if (!soldAd) {
       return errorResponse(res);
     }
     let { status } = soldAd;
     status = status === 'Sold' ? 'Available' : 'Sold';
-    const [result] = await query(changeStatusQuery(status, property_id));
+    const [result] = await query(changeStatusQuery(status, propId));
     successResponse(res, myAd(result));
   } catch (e) {
     errorResponse(res, e, 500);
   }
 };
 
-const deletePropertyAd = async ({ body: { owner }, params: { property_id } }, res) => {
+const deletePropertyAd = async ({ body: { owner }, params: { property_id: propId } }, res) => {
   try {
-    const [adStatus] = await query(removeItemQuery(owner, property_id));
+    const [adStatus] = await query(removeItemQuery(owner, propId));
     if (!adStatus) {
       return errorResponse(res);
     }
@@ -64,9 +63,9 @@ const deletePropertyAd = async ({ body: { owner }, params: { property_id } }, re
 };
 
 
-const getAdById = async ({ params: { property_id } }, res) => {
+const getAdById = async ({ params: { property_id: propId } }, res) => {
   try {
-    const [propertyAd] = await query(getAd(property_id));
+    const [propertyAd] = await query(getAd(propId));
     if (!propertyAd) {
       return errorResponse(res);
     }
@@ -106,8 +105,8 @@ const getByType = async ({ query: { type } }, res, next) => {
 };
 
 const flag = async ({ params, body }, res) => {
-  const { property_id } = params;
-  body.property_id = property_id;
+  const { property_id: propId } = params;
+  body.property_id = propId;
   body.id = intformat(genId.next(), 'dec');
   try {
     await query(flagQuery(body));
