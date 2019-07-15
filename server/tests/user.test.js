@@ -24,20 +24,20 @@ const sameEmail = {
 describe('Create user route', () => {
   it('should create a user given correct input', async () => {
     const { status, text } = await chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/auth/signup')
       .send(user);
     expect(status).to.eql(201);
     expect(JSON.parse(text).data.last_name).to.eql('gotti');
   });
   it('Should return error message with conflicting emails', async () => {
     const { status } = await chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/auth/signup')
       .send(sameEmail);
     expect(status).to.eql(409);
   });
   it('should return an error for bad input', async () => {
     const { status, text } = await chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/auth/signup')
       .send({ crohns: 'disease' });
     expect(status).to.eql(400);
     expect(JSON.parse(text).error).to.eql('"password" is required');
@@ -47,7 +47,7 @@ describe('Create user route', () => {
 describe('Login user route', () => {
   it('should login a user given correct input', async () => {
     const { status, text } = await chai.request(app)
-      .post('/api/v1/auth/signin')
+      .post('/auth/signin')
       .send({
         email: 'johngotti@gmail.com',
         password: 'jkjlks'
@@ -57,7 +57,7 @@ describe('Login user route', () => {
   });
   it('Should return an error given a non existent username', async () => {
     const { status, text } = await chai.request(app)
-      .post('/api/v1/auth/signin')
+      .post('/auth/signin')
       .send({
         email: 'emeka@g.com',
         password: 'jkjlks'
@@ -67,14 +67,14 @@ describe('Login user route', () => {
   });
   it('Should for incorrect password', async () => {
     const { status, text } = await chai.request(app)
-      .post('/api/v1/auth/signin')
+      .post('/auth/signin')
       .send({ email: 'johngotti@gmail.com', password: 'hfjdkdfd' });
     expect(status).to.eql(401);
     expect(JSON.parse(text).error).to.eql('Incorrect Password');
   });
   it('should return an error; given bad input', async () => {
     const { status, text } = await chai.request(app)
-      .post('/api/v1/auth/signin')
+      .post('/auth/signin')
       .send({
         email: 'johngotti@gmail.com',
       });
@@ -87,7 +87,7 @@ describe('Change Password Route', () => {
   let jwtToken;
   before(async () => {
     const { text } = await chai.request(app)
-      .post('/api/v1/auth/signin')
+      .post('/auth/signin')
       .send({
         email: 'johngotti@gmail.com',
         password: 'jkjlks'
