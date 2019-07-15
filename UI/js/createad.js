@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /* eslint-disable import/extensions */
 import upload from './cloudinary.js';
 import display from './detailsview.js';

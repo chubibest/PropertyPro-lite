@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 export default (relation, data) => {
   let fields;
   let values;
@@ -23,9 +23,9 @@ export default (relation, data) => {
   }
   fields = 'id, owner, price, city, state, address, type, image_url';
   const {
-    id, owner, price, city, state, address, type, image_url
+    id, owner, price, city, state, address, type, image_url: imageUrl
   } = data;
-  values = [id, owner, price, city, state, address, type, image_url];
+  values = [id, owner, price, city, state, address, type, imageUrl];
   return {
     text: `INSERT INTO  ${relation}
     (${fields})
