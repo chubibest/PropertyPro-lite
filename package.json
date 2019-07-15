@@ -14,7 +14,7 @@
     "build": "rm -rf dist/ && npm run refresh && babel server/ -d dist/ --ignore server/test",
     "dev": "nodemon --exec babel-node server",
     "dev-test": "nodemon --exec npm test",
-    "start": "npm run refresh && node dist",
+    "start": "node dist",
     "mail": "babel-node server/sendgrid/resetpassmail.js"
   },
   "repository": {
