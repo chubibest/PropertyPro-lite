@@ -35,7 +35,7 @@ describe('Property routes', () => {
   let propid;
   before(async () => {
     const { text } = await chai.request(app)
-      .post('/api/v1/auth/signin')
+      .post('/auth/signin')
       .send({
         email: 'johngotti@gmail.com',
         password: 'fireboy'
@@ -46,7 +46,7 @@ describe('Property routes', () => {
   describe('Get ads when empty', () => {
     it('should  return a message when there are no ads', async () => {
       const { status, text } = await chai.request(app)
-        .get('/api/v1/property')
+        .get('/property')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(200);
@@ -54,7 +54,7 @@ describe('Property routes', () => {
     });
     it('should a message when there are no ads of specific type', async () => {
       const { status, text } = await chai.request(app)
-        .get('/api/v1/property?type=2+bedroom')
+        .get('/property?type=2+bedroom')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(200);
@@ -64,7 +64,7 @@ describe('Property routes', () => {
   describe('Post Ad route', () => {
     it('should create a new ad', async () => {
       const { status, text } = await chai.request(app)
-        .post('/api/v1/property')
+        .post('/property')
         .set('authorization', jwtToken)
         .send(ad);
       expect(status).to.eql(200);
@@ -73,7 +73,7 @@ describe('Property routes', () => {
     });
     it('should return an error for unauthenticated user', async () => {
       const { status, text } = await chai.request(app)
-        .post('/api/v1/property')
+        .post('/property')
         .set('authorization', 'ABCDEFG HIJKLMNOP QRSTUV WXYZ')
         .send(ad);
       expect(status).to.eql(403);
@@ -81,7 +81,7 @@ describe('Property routes', () => {
     });
     it('should return an error for bad data', async () => {
       const { status, text } = await chai.request(app)
-        .post('/api/v1/property')
+        .post('/property')
         .set('authorization', jwtToken)
         .send({ crohns: 'disease' });
       expect(status).to.eql(400);
@@ -92,7 +92,7 @@ describe('Property routes', () => {
   describe('Update ad', () => {
     it('should update an ad', async () => {
       const { status, text } = await chai.request(app)
-        .patch(`/api/v1/property/${propid}`)
+        .patch(`/property/${propid}`)
         .set('authorization', jwtToken)
         .send(update);
       expect(status).to.eql(200);
@@ -100,7 +100,7 @@ describe('Property routes', () => {
     });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)
-        .patch('/api/v1/property/1234')
+        .patch('/property/1234')
         .set('authorization', jwtToken)
         .send(ad);
       expect(status).to.eql(404);
@@ -108,7 +108,7 @@ describe('Property routes', () => {
     });
     it('should return an error; given bad input', async () => {
       const { status, text } = await chai.request(app)
-        .patch(`/api/v1/property/${propid}`)
+        .patch(`/property/${propid}`)
         .set('authorization', jwtToken)
         .send(badInput);
       expect(status).to.eql(400);
@@ -119,7 +119,7 @@ describe('Property routes', () => {
   describe('Change ad status', () => {
     it('should change ad status', async () => {
       const { status, text } = await chai.request(app)
-        .patch(`/api/v1/property/${propid}/sold`)
+        .patch(`/property/${propid}/sold`)
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(200);
@@ -127,7 +127,7 @@ describe('Property routes', () => {
     });
     it('should change ad status again', async () => {
       const { status, text } = await chai.request(app)
-        .patch(`/api/v1/property/${propid}/sold`)
+        .patch(`/property/${propid}/sold`)
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(200);
@@ -135,7 +135,7 @@ describe('Property routes', () => {
     });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)
-        .patch('/api/v1/property/1234/sold')
+        .patch('/property/1234/sold')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(404);
@@ -146,7 +146,7 @@ describe('Property routes', () => {
   describe('Get ads', () => {
     it('should return ads', async () => {
       const { status, text } = await chai.request(app)
-        .get('/api/v1/property')
+        .get('/property')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(200);
@@ -154,7 +154,7 @@ describe('Property routes', () => {
     });
     it('should ad of given type', async () => {
       const { status, text } = await chai.request(app)
-        .get('/api/v1/property?type=2+bedroom')
+        .get('/property?type=2+bedroom')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(200);
@@ -165,7 +165,7 @@ describe('Property routes', () => {
   describe('Get ad by id', () => {
     it('should get ad by id', async () => {
       const { status, text } = await chai.request(app)
-        .get(`/api/v1/property/${propid}`)
+        .get(`/property/${propid}`)
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(200);
@@ -173,7 +173,7 @@ describe('Property routes', () => {
     });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)
-        .get('/api/v1/property/1234')
+        .get('/property/1234')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(404);
@@ -183,8 +183,8 @@ describe('Property routes', () => {
 
   describe('Flag Ad', () => {
     it('Should flag ad as fraudulent', async () => {
-      const { status, text } = await chai.request(app)
-        .post(`/api/v1/property/${propid}`)
+      const { status } = await chai.request(app)
+        .post(`/property/${propid}`)
         .set('authorization', jwtToken)
         .send({
           reason: 'it is not his own',
@@ -196,14 +196,14 @@ describe('Property routes', () => {
   describe('Delete ad', () => {
     it('should delete an ad', async () => {
       const { status } = await chai.request(app)
-        .delete(`/api/v1/property/${propid}`)
+        .delete(`/property/${propid}`)
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(204);
     });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)
-        .delete('/api/v1/property/1234')
+        .delete('/property/1234')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(404);
