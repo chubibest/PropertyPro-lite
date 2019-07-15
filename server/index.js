@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
@@ -9,11 +10,12 @@ const swaggerDocument = YAML.load(`${process.cwd()}/server/docs/docs.yaml`);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
 app.use(express.static('UI'));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 app.get('/api/v1', (req, res) => {

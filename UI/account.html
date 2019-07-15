@@ -19,10 +19,6 @@
         </div>
    
     <ul id="nav_links">
-        <i class="fa fa-bars fa-2x" id="menu"></i>
-      <li class="nav_link_items display">
-        <a href="signup.html" >Sign Up</a>
-      </li>
     </ul>
   </header>
   <div id="motto">
@@ -33,24 +29,13 @@
   <main>
     <form>
       <div id="form-header">
-        Sign in to your account
+        Change password
       </div>
       <ul>
         <li>
-        <label for="email">Email</label>   
-        <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9.]{3,30}@[a-zA-Z0-9]{3,30}\.[a-zA-Z0-9]{1,10}"
-        title="example@example.com" onfocus="clearEmail()">
-        <span class="tooltips" id="email_exists"></span>
-        <script>
-          const clearEmail = () => {
-            document.querySelector('#email_exists').textContent = '';
-          }
-          </script>
-      </li>
-        <li>
-            <label for="password">Password</label>
-            <input type="password" id="password" required pattern=".{5,20}"
-            title="john123" name="password" onfocus="clearPassword()">
+            <label for="oldpass">Old Password</label>
+            <input type="password" id="oldpass" required pattern=".{5,20}"
+            title="john123" name="oldpass" onfocus="clearPassword()">
             <span class="tooltips" id="passwordtt"></span>
             <script>
                 const clearPassword = () => {
@@ -58,14 +43,33 @@
                 }
               </script>
         </li>
+        <li>
+          <label for="password">New Password</label>
+          <input type="password" id="password" name="newpass" required pattern=".{5,20}"
+          title="john123">
+      </li>
+      <li>
+          <label for="confirmpassword">Confirm Password</label>
+          <input type="password" id="confirmpassword" oninput="confirmPassword(this)" onchange="confirmPassword(this)">
+        <script>
+    function confirmPassword(input){
+      if (input.value != document.getElementById('password').value) {
+            input.setCustomValidity('Passwords don\'t match, please crosscheck.');
+ 
+} else {
+            input.setCustomValidity('');
+          }
+}
+        </script>
+      </li>
+      <a href="email.html"> Can't remember your password</a>
       </ul>
-      <button id="sign_in">
-        Sign in
+      <button id="change_pass">
+        Change password
       </button>
     </form>
     
   </main>
-  <script src="js/menu.js"></script>
-  <script type="module" src="js/signin.js"></script>
+  <script type="module" src="js/account.js"></script>
 </body>
 </html>

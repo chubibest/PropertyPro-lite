@@ -34,3 +34,38 @@ font-weight:bold;
 #nav_links {
   font-size:.9em;
 }
+#display_property{
+  display: none;
+  grid-template-columns: 500px 500px;
+  justify-content: center;
+  padding: 2em;
+  grid-row-gap: 3em;
+}
+.display_ad {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.thumbnail {
+  width: 150px;
+  height: 150px;
+  border-radius: 3px;
+}
+.ad_details_ul{
+  list-style-type: none;
+  padding:0;
+  color: white;
+  text-align:left;
+  line-height: 1.5;
+}
+
+.view_ad_buttons{
+  width: 5em;
+  font-size: .6em;
+}
+
+@media(max-width:1000px){
+  #display_property{
+    grid-template-columns: 500px;
+  }
+}

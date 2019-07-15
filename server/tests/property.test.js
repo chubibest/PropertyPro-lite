@@ -12,6 +12,24 @@ const ad = {
   image_url: 'djkdfds'
 };
 
+const update = {
+  type: '2 bedroom',
+  state: 'Edo',
+  city: 'benin city',
+  address: 'ugbowo abuja',
+  price: 3000,
+  image_url: 'djkdfds'
+};
+
+const badInput = {
+  zues: 'lagos',
+  city: 'ikeja',
+  type: '1bedroom',
+  state: 'Edo',
+  address: 'ugbowo abuja',
+  price: 3000,
+  image_url: 'djkdfds'
+};
 describe('Property routes', () => {
   let jwtToken;
   let propid;
@@ -19,8 +37,8 @@ describe('Property routes', () => {
     const { text } = await chai.request(app)
       .post('/api/v1/auth/signin')
       .send({
-        username: 'johngotti',
-        password: 'jkjlks'
+        email: 'johngotti@gmail.com',
+        password: 'fireboy'
       });
     jwtToken = JSON.parse(text).data.token;
   });
@@ -50,7 +68,7 @@ describe('Property routes', () => {
         .set('authorization', jwtToken)
         .send(ad);
       expect(status).to.eql(200);
-      expect(JSON.parse(text).data.price).to.eql(3000);
+      expect(JSON.parse(text).data.price).to.eql('3000');
       propid = JSON.parse(text).data.id;
     });
     it('should return an error for unauthenticated user', async () => {
@@ -76,15 +94,15 @@ describe('Property routes', () => {
       const { status, text } = await chai.request(app)
         .patch(`/api/v1/property/${propid}`)
         .set('authorization', jwtToken)
-        .send({ state: 'lagos', city: 'ikeja' });
+        .send(update);
       expect(status).to.eql(200);
-      expect(JSON.parse(text).data.state).to.eql('lagos');
+      expect(JSON.parse(text).data.state).to.eql('Edo');
     });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)
-        .patch('/api/v1/property/gbamurokoto')
+        .patch('/api/v1/property/1234')
         .set('authorization', jwtToken)
-        .send({ state: 'edo', city: 'ekosodin' });
+        .send(ad);
       expect(status).to.eql(404);
       expect(JSON.parse(text).error).to.eql('Not Found');
     });
@@ -92,7 +110,7 @@ describe('Property routes', () => {
       const { status, text } = await chai.request(app)
         .patch(`/api/v1/property/${propid}`)
         .set('authorization', jwtToken)
-        .send({ zues: 'lagos', city: 'ikeja' });
+        .send(badInput);
       expect(status).to.eql(400);
       expect(JSON.parse(text).error).to.eql('"zues" is not allowed');
     });
@@ -107,9 +125,17 @@ describe('Property routes', () => {
       expect(status).to.eql(200);
       expect(JSON.parse(text).data.status).to.eql('Sold');
     });
+    it('should change ad status again', async () => {
+      const { status, text } = await chai.request(app)
+        .patch(`/api/v1/property/${propid}/sold`)
+        .set('authorization', jwtToken)
+        .send();
+      expect(status).to.eql(200);
+      expect(JSON.parse(text).data.status).to.eql('Available');
+    });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)
-        .patch('/api/v1/property/gbamurokoto/sold')
+        .patch('/api/v1/property/1234/sold')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(404);
@@ -147,7 +173,7 @@ describe('Property routes', () => {
     });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)
-        .get('/api/v1/property/gbamurokoto')
+        .get('/api/v1/property/1234')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(404);
@@ -155,6 +181,18 @@ describe('Property routes', () => {
     });
   });
 
+  describe('Flag Ad', () => {
+    it('Should flag ad as fraudulent', async () => {
+      const { status, text } = await chai.request(app)
+        .post(`/api/v1/property/${propid}`)
+        .set('authorization', jwtToken)
+        .send({
+          reason: 'it is not his own',
+          description: 'it is not his own'
+        });
+      expect(status).to.eql(204);
+    });
+  });
   describe('Delete ad', () => {
     it('should delete an ad', async () => {
       const { status } = await chai.request(app)
@@ -165,7 +203,7 @@ describe('Property routes', () => {
     });
     it('should return an error for wrong id', async () => {
       const { status, text } = await chai.request(app)
-        .delete('/api/v1/property/gbamurokoto')
+        .delete('/api/v1/property/1234')
         .set('authorization', jwtToken)
         .send();
       expect(status).to.eql(404);
