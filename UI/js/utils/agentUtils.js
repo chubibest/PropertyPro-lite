@@ -8,7 +8,7 @@ const handleDelete = async ({ id }) => {
       authorization: token
     }
   };
-  const response = await fetch(`/api/v1/property/${id}`, fetchOptions);
+  const response = await fetch(`/property/${id}`, fetchOptions);
   if (response.status === 204) {
     window.location.href = 'user.html';
   }
@@ -21,7 +21,7 @@ const handleMark = async ({ id }, e) => {
       authorization: token
     }
   };
-  const response = await fetch(`/api/v1/property/${id}/sold`, fetchOptions);
+  const response = await fetch(`/property/${id}/sold`, fetchOptions);
   const { data: { status } } = await response.json();
   const displayLi = document.getElementById('5');
   displayLi.innerText = status;
