@@ -7,7 +7,14 @@ const signUpSchema = Joi.object().keys({
   last_name: Joi.string().trim().strict(),
   phone_number: Joi.number().required(),
   address: Joi.string().trim().required(),
-  email: Joi.string().trim().email({ minDomainSegments: 2 }).required()
+  email: Joi.string().trim().email({ minDomainSegments: 2 }).required(),
+  is_admin: Joi.boolean(),
+  street: Joi.string(),
+  city: Joi.string(),
+  state: Joi.string(),
+  country: Joi.string(),
+  phone: Joi.string(),
+  zip: Joi.string()
 });
 
 const signInSchema = {

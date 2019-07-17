@@ -29,7 +29,7 @@ form.addEventListener('submit', (e) => {
     },
     body: JSON.stringify(data)
   };
-  fetch('/api/v1/auth/signin', fetchOptions)
+  fetch('/auth/signin', fetchOptions)
     .then(res => res.json())
     .then((result) => {
       handlerResults(result);
