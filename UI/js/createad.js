@@ -18,7 +18,7 @@ form.addEventListener('submit', async (e) => {
   myForm.forEach((value, key) => { data[key] = value; });
   const token = localStorage.getItem('token');
   try {
-    const response = await fetch('/api/v1/property', fetchOptions(data, token));
+    const response = await fetch('/property', fetchOptions(data, token));
     const result = await response.json();
     if (result.status === 'error') {
       throw result.status;

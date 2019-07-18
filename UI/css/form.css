@@ -73,6 +73,26 @@ button {
   color:white;
   font-size:2em;
 }
+
+#go_home {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color:white;
+  font-size: .8em;
+}
+#go_home_button {
+  font-size: .8em;
+}
+#siginin_ul{
+  padding-bottom: 0;
+}
+.change_pass {
+  font-size: .5em;
+  display: block;
+}
 @media(max-width:1000px){
   form ul li {
     grid-template-columns: 1fr;

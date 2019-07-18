@@ -20,7 +20,7 @@ form.addEventListener('submit', async (e) => {
     },
     body: JSON.stringify(data)
   };
-  const response = await fetch(`/api/v1/property/${id}`, fetchOptions);
+  const response = await fetch(`/property/${id}`, fetchOptions);
   if (response.status === 204) {
     successHandler(form, 'user.html');
   }

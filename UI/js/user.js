@@ -18,13 +18,14 @@ const queryBackEnd = async (e, type) => {
       authorization: token
     }
   };
-  let url = '/api/v1/property';
+  let url = '/property';
   if (type) {
-    url = `/api/v1/property?type=${type}`;
+    url = `/property?type=${type}`;
   }
 
   try {
     const response = await fetch(url, fetchOptions);
+    e.target.disabled = false;
     const result = await response.json();
     return result;
   } catch (err) {
@@ -48,7 +49,7 @@ const displayUlItems = (adDetails, id) => {
           authorization: token
         }
       };
-      const response = await fetch(`/api/v1/property/${id}`, fetchOptions);
+      const response = await fetch(`/property/${id}`, fetchOptions);
       const { data } = await response.json();
       viewSingleAd(data);
     })();
@@ -82,6 +83,7 @@ const addClickListener = (button) => {
   button.addEventListener('click', async (e) => {
     e.preventDefault();
     const result = await queryBackEnd(e, input.value);
+    input.value = '';
     display(result.data);
   });
 };
