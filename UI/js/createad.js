@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /* eslint-disable import/extensions */
 import upload from './cloudinary.js';
 import display from './detailsview.js';
@@ -15,11 +14,10 @@ form.addEventListener('submit', async (e) => {
   const imageUrl = await upload(form);
   myForm.append('image_url', imageUrl);
   myForm.delete('image');
-  myForm.delete('images');
   myForm.forEach((value, key) => { data[key] = value; });
   const token = localStorage.getItem('token');
   try {
-    const response = await fetch('/api/v1/property', fetchOptions(data, token));
+    const response = await fetch('/property', fetchOptions(data, token));
     const result = await response.json();
     if (result.status === 'error') {
       throw result.status;

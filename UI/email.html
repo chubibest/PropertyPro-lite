@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropertyPro-lite</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+  <header>
+      <div id="logo">
+          <a href="index.html">
+          PropertyPro-lite
+        </a>
+        </div>
+   
+    <ul id="nav_links">
+        <!-- <i class="fa fa-bars fa-2x" id="menu"></i>
+      <li class="nav_link_items display">
+        <a href="signup.html" >Sign Up</a>
+      </li> -->
+    </ul>
+  </header>
+  <div id="motto">
+    <h4>
+      Real Estate Management Made Easy...
+    </h4>
+  </div>
+  <main>
+    <form id= "email_form">
+      <div id="form-header">
+        Flag Ad
+      </div>
+      <ul>
+          <li>
+              <label for="email">Enter your email</label>   
+              <input type="email" id="email" name="email" required 
+              pattern="[a-zA-Z0-9.]{3,30}@[a-zA-Z0-9]{3,30}\.[a-zA-Z0-9]{1,10}"
+              title="example@example.com" onfocus="clearEmail()">
+              <span class="tooltips" id="email_exists"></span>
+              <script>
+                const clearEmail = () => {
+                  document.querySelector('#email_exists').textContent = '';
+                }
+                </script>
+            </li>
+      </ul>
+      <button id="submit_email_button">
+        Submit
+      </button>
+    </form>
+    <div id="go_home">
+      <h2> New password has been sent to your mail</h2>
+      <a href="signin.html">
+      <button id="go_home_button">
+          Sign in 
+      </button>
+    </a>
+    </div>
+    
+  </main>
+  <script type="module" src="js/email.js"></script>
+</body>
+</html>

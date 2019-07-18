@@ -3,6 +3,9 @@ export default (obj, ul) => {
     const li = document.createElement('li');
     const Key = key.replace(key.charAt(0), key.charAt(0).toUpperCase());
     li.innerText = `${Key}: ${value}`;
+    if (key === 'price') {
+      li.innerText = `${Key}: #${value}`;
+    }
     ul.appendChild(li);
   });
 };

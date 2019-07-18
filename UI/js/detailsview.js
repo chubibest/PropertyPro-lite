@@ -3,14 +3,14 @@ import {
   handleDelete, handleMark, generateAgentButtons
 } from './utils/agentUtils.js';
 import handleUpdate from './utils/handleUpdate.js';
-import callmap from './utils/callmap.js';
+// import callmap from './utils/callmap.js';
 
 const displayResults = document.querySelector('#display_property');
 const displayDetailsUl = document.querySelector('#data_display');
 const displayPoster = document.querySelector('#image_display');
 const form = document.querySelector('form');
 const updateForm = document.querySelector('#update_Form');
-const buttonsDiv = document.querySelector('#populateButtons');
+// const buttonsDiv = document.querySelector('#populateButtons');
 
 const displayDetails = (ad) => {
   const {
@@ -18,7 +18,7 @@ const displayDetails = (ad) => {
   } = ad;
   const usefulFieslds = [
     { Type: type },
-    { Price: price },
+    { Price: `#${price}` },
     { City: city },
     { State: state },
     { Address: address },
@@ -37,8 +37,8 @@ const displayDetails = (ad) => {
     generateAgentButtons('Mark as sold').addEventListener('click', (e) => {
       handleMark(ad, e);
     });
-    const locationButton = callmap(displayResults);
-    buttonsDiv.appendChild(locationButton);
+    // const locationButton = callmap(displayResults);
+    // buttonsDiv.appendChild(locationButton);
     return;
   }
   usefulFieslds.forEach((detail, index) => {

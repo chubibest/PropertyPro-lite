@@ -1,12 +1,10 @@
-/* eslint-disable camelcase */
-
 export const updateAdQuery = ({
-  price, city, state, address, type, image_url
+  price, city, state, address, type, image_url: imageUrl
 }, owner, id) => ({
   text: `UPDATE property SET
   price = $1, city = $2, state = $3, address = $4, type = $5, image_url = $6
   WHERE Id = $7 and owner = $8 returning *`,
-  values: [price, city, state, address, type, image_url, id, owner]
+  values: [price, city, state, address, type, imageUrl, id, owner]
 });
 
 export const getStatus = (owner, id) => ({
@@ -42,9 +40,9 @@ export const getAllQuery = () => ({
 
 
 export const flagQuery = ({
-  id, property_id, reason, description
+  id, property_id: propId, reason, description
 }) => ({
   text: `INSERT INTO flags (id, property_id, reason, description)
   values ($1, $2, $3, $4)`,
-  values: [id, property_id, reason, description]
+  values: [id, propId, reason, description]
 });

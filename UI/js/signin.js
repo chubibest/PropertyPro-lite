@@ -7,7 +7,7 @@ const handlerResults = (result) => {
       window.location.href = 'user.html';
       break;
     case (404):
-      document.querySelector('#usernamett').textContent = 'User does not exist';
+      document.querySelector('#email_exists').textContent = 'email does not exist';
       break;
     case (401):
       document.querySelector('#passwordtt').textContent = 'Incorrect password';
@@ -29,7 +29,7 @@ form.addEventListener('submit', (e) => {
     },
     body: JSON.stringify(data)
   };
-  fetch('/api/v1/auth/signin', fetchOptions)
+  fetch('/auth/signin', fetchOptions)
     .then(res => res.json())
     .then((result) => {
       handlerResults(result);

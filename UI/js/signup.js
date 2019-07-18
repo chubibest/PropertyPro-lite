@@ -12,7 +12,7 @@ form.addEventListener('submit', async (e) => {
     },
     body: JSON.stringify(data)
   };
-  const response = await fetch('/api/v1/auth/signup', fetchOptions);
+  const response = await fetch('/auth/signup', fetchOptions);
   const result = await response.json();
   if (result.error === 'email already exists') {
     document.querySelector('input[name=email]+ small').textContent = 'email already exists';
