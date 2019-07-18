@@ -14,7 +14,6 @@ form.addEventListener('submit', async (e) => {
   const imageUrl = await upload(form);
   myForm.append('image_url', imageUrl);
   myForm.delete('image');
-  myForm.delete('images');
   myForm.forEach((value, key) => { data[key] = value; });
   const token = localStorage.getItem('token');
   try {
