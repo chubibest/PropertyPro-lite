@@ -26,7 +26,7 @@ updateForm.addEventListener('submit', async (e) => {
   };
   const response = await fetch(`/property/${id}`, fetchOptions);
   const result = await response.json();
-  console.log('sdkfja', result.data);
+  localStorage.setItem('caller', 'update');
   display(result.data);
   submitButton.disabled = false;
 });

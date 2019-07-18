@@ -90,6 +90,35 @@ paths:
           description: Incorrect password
         '404':
           description: Not found
+  /auth/:user_email/reset_password:
+    post:
+      tags:
+        - User
+      summary: Changes password
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: user_email
+          description: User email
+          required: true
+          type: string
+        - in: body
+          name: details
+          description: Application user
+          required: false
+          schema:
+            type: object
+            properties:
+              oldpass:
+                type: string
+              newpass:
+                type: string
+      responses:
+        '204':
+          description: acknowledged
   /property:
     post:
       tags:
@@ -198,6 +227,31 @@ paths:
           description: Ad updated
           schema:
             $ref: '#/definitions/AdResponse'
+        '403':
+          description: Invalid token
+        '404':
+          description: Not found
+    post:
+      tags:
+        - Flags
+      summary: Flags an ad
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: property_id
+          description: Property id
+          required: true
+          type: string
+      responses:
+        '201':
+          description: Ad updated
+          schema:
+            $ref: '#/definitions/AdResponse'
+        '400':
+          description: Invalid data
         '403':
           description: Invalid token
         '404':
