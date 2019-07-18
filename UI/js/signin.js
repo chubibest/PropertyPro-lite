@@ -7,7 +7,7 @@ const handlerResults = (result) => {
       window.location.href = 'user.html';
       break;
     case (404):
-      document.querySelector('#usernamett').textContent = 'User does not exist';
+      document.querySelector('#email_exists').textContent = 'email does not exist';
       break;
     case (401):
       document.querySelector('#passwordtt').textContent = 'Incorrect password';

@@ -5,7 +5,6 @@ form.addEventListener('submit', async (e) => {
   const data = {};
   const formData = new FormData(e.target);
   formData.forEach((value, key) => { data[key] = value; });
-  console.log(data);
   const fetchOptions = {
     method: 'POST',
     headers: {
