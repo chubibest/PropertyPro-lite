@@ -36,7 +36,7 @@
     "cloudinary": "^1.14.0",
     "coveralls": "^3.0.4",
     "dotenv": "^8.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "flake-idgen": "^1.1.2",
     "generate-password": "^1.4.2",
     "joi": "^14.3.1",
